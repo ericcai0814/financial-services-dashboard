@@ -67,6 +67,31 @@ function pnlClass(value) {
   return 'neutral';
 }
 
+function relativeTime(dateStr) {
+  const now = Date.now();
+  const then = new Date(dateStr).getTime();
+  const diff = Math.floor((now - then) / 1000);
+  if (diff < 60) return '剛剛';
+  if (diff < 3600) return `${Math.floor(diff / 60)} 分鐘前`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)} 小時前`;
+  return `${Math.floor(diff / 86400)} 天前`;
+}
+
+// ─── 數字動畫 ──────────────────────────────────
+function animateValue(element, target, formatter, duration = 800) {
+  const start = 0;
+  const startTime = performance.now();
+  function tick(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+    const current = start + (target - start) * eased;
+    element.textContent = formatter(current);
+    if (progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
 // ─── 資料載入 ──────────────────────────────────
 async function fetchJson(path) {
   const res = await fetch(path);
@@ -86,15 +111,16 @@ async function loadData() {
 
 // ─── 摘要卡片 ──────────────────────────────────
 function renderSummary(summary) {
-  document.getElementById('total-value').textContent = formatCurrency(summary.total_value);
+  const valueEl = document.getElementById('total-value');
+  animateValue(valueEl, summary.total_value, formatCurrency);
 
   const pnlEl = document.getElementById('total-pnl');
-  pnlEl.textContent = formatPnl(summary.total_pnl);
   pnlEl.className = `text-2xl font-bold ${pnlClass(summary.total_pnl)}`;
+  animateValue(pnlEl, summary.total_pnl, formatPnl);
 
   const retEl = document.getElementById('total-return');
-  retEl.textContent = formatReturn(summary.total_return);
   retEl.className = `text-2xl font-bold ${pnlClass(summary.total_return)}`;
+  animateValue(retEl, summary.total_return, formatReturn);
 }
 
 // ─── 資產配置 Donut ────────────────────────────
@@ -216,6 +242,11 @@ function toggleXray(ticker, rowEl) {
   container.replaceChildren(buildXrayPanel(ticker, etf));
 
   renderXrayCharts(ticker, etf);
+
+  // 平滑滾動到 X 光面板
+  setTimeout(() => {
+    container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }, 50);
 }
 
 function buildXrayPanel(ticker, etf) {
@@ -493,7 +524,10 @@ function renderTimestamp(updatedAt) {
     return;
   }
   const d = new Date(updatedAt);
-  elNode.textContent = `最後更新：${d.toLocaleDateString('zh-TW')} ${d.toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' })}`;
+  const absolute = `${d.toLocaleDateString('zh-TW')} ${d.toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' })}`;
+  const relative = relativeTime(updatedAt);
+  elNode.textContent = `${relative}更新 (${absolute})`;
+  elNode.title = absolute;
 }
 
 // ─── 初始化 ────────────────────────────────────

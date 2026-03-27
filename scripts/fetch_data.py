@@ -19,19 +19,28 @@ DASHBOARD_DIR = os.path.dirname(SCRIPT_DIR)
 DATA_DIR = os.path.join(DASHBOARD_DIR, "data")
 MY_TW_COVERAGE = os.path.join(os.path.dirname(DASHBOARD_DIR), "My-TW-Coverage")
 
-# ─── 持倉定義 ───────────────────────────────────────────
-HOLDINGS = [
-    {"ticker": "006208", "yf_ticker": "006208.TW", "name": "富邦台50",
-     "shares": 6363, "unit": "股", "avg_cost": 120.32, "type": "etf"},
-    {"ticker": "00878", "yf_ticker": "00878.TW", "name": "國泰永續高股息",
-     "shares": 8000, "unit": "股", "avg_cost": 22.68, "type": "etf"},
-    {"ticker": "00881", "yf_ticker": "00881.TW", "name": "國泰台灣科技龍頭",
-     "shares": 2000, "unit": "股", "avg_cost": 16.76, "type": "etf"},
-    {"ticker": "00910", "yf_ticker": "00910.TW", "name": "第一金太空衛星",
-     "shares": 1000, "unit": "股", "avg_cost": 56.75, "type": "etf"},
-    {"ticker": "1432", "yf_ticker": "1432.TW", "name": "大魯閣",
-     "shares": 1, "unit": "股", "avg_cost": 19.00, "type": "stock"},
-]
+# ─── 持倉定義（從 holdings.json 讀取）─────────────────────
+HOLDINGS_FILE = os.path.join(DATA_DIR, "holdings.json")
+
+
+def load_holdings():
+    """從 data/holdings.json 讀取持倉設定。"""
+    with open(HOLDINGS_FILE, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    holdings = []
+    for h in data["holdings"]:
+        ticker = h["ticker"]
+        yf_ticker = f"{ticker}.TW" if not ticker.endswith(".TW") else ticker
+        holdings.append({
+            "ticker": ticker,
+            "yf_ticker": yf_ticker,
+            "name": h["name"],
+            "shares": h["shares"],
+            "unit": "股",
+            "avg_cost": h["avg_cost"],
+            "type": h.get("type", "stock"),
+        })
+    return holdings
 
 # ─── ETF 成分股定義（硬編碼已知成分股）───────────────────
 ETF_COMPONENTS = {
@@ -415,14 +424,18 @@ def write_json(data, filename):
 def main():
     os.makedirs(DATA_DIR, exist_ok=True)
 
+    # Step 0: 載入持倉設定
+    holdings = load_holdings()
+    print(f"載入 {len(holdings)} 檔持倉")
+
     # Step 1: 拉取持倉價格
-    prices = fetch_current_prices(HOLDINGS)
-    for h in HOLDINGS:
+    prices = fetch_current_prices(holdings)
+    for h in holdings:
         p = prices.get(h["yf_ticker"], "N/A")
         print(f"  {h['ticker']} {h['name']}: ${p}")
 
     # Step 2: 建構 portfolio.json
-    portfolio = build_portfolio(HOLDINGS, prices)
+    portfolio = build_portfolio(holdings, prices)
     path = write_json(portfolio, "portfolio.json")
     print(f"\n✓ portfolio.json → {path}")
     print(f"  總市值: ${portfolio['summary']['total_value']:,}")
@@ -443,7 +456,7 @@ def main():
     print(f"  ETF 交叉對: {len(overlap['matrix'])} 組")
 
     # Step 5: 建構 history.json
-    history = build_history(HOLDINGS)
+    history = build_history(holdings)
     if history:
         path = write_json(history, "history.json")
         print(f"\n✓ history.json → {path}")

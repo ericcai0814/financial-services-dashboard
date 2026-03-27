@@ -179,6 +179,21 @@ body {
   thead th:nth-child(5) {
     display: none;
   }
+
+  #trend-chart {
+    min-height: 180px;
+  }
+
+  /* 觸控友好：加大表格列高 */
+  #holdings-body tr td {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .overlap-table td,
+  .overlap-table th {
+    padding: 0.625rem 0.375rem;
+    font-size: 0.75rem;
+  }
 }
 
 /* ─── Expand indicator ────────────────────── */

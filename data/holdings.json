@@ -1,0 +1,39 @@
+{
+  "holdings": [
+    {
+      "ticker": "006208",
+      "name": "富邦台50",
+      "shares": 6363,
+      "avg_cost": 120.32,
+      "type": "etf"
+    },
+    {
+      "ticker": "00878",
+      "name": "國泰永續高股息",
+      "shares": 8000,
+      "avg_cost": 22.68,
+      "type": "etf"
+    },
+    {
+      "ticker": "00881",
+      "name": "國泰台灣科技龍頭",
+      "shares": 2000,
+      "avg_cost": 16.76,
+      "type": "etf"
+    },
+    {
+      "ticker": "00910",
+      "name": "第一金太空衛星",
+      "shares": 1000,
+      "avg_cost": 56.75,
+      "type": "etf"
+    },
+    {
+      "ticker": "1432",
+      "name": "大魯閣",
+      "shares": 1,
+      "avg_cost": 19.00,
+      "type": "stock"
+    }
+  ]
+}
