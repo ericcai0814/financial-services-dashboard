@@ -1,0 +1,70 @@
+{
+  "updated_at": "2026-03-27T17:21:08",
+  "summary": {
+    "total_value": 1423443,
+    "total_pnl": 386118,
+    "total_return": 37.2
+  },
+  "holdings": [
+    {
+      "ticker": "006208",
+      "name": "富邦台50",
+      "shares": 6363,
+      "unit": "股",
+      "avg_cost": 120.32,
+      "current_price": 174.45,
+      "market_value": 1110025,
+      "pnl": 344429,
+      "return_pct": 44.99,
+      "type": "etf"
+    },
+    {
+      "ticker": "00878",
+      "name": "國泰永續高股息",
+      "shares": 8000,
+      "unit": "股",
+      "avg_cost": 22.68,
+      "current_price": 22.39,
+      "market_value": 179120,
+      "pnl": -2320,
+      "return_pct": -1.28,
+      "type": "etf"
+    },
+    {
+      "ticker": "00881",
+      "name": "國泰台灣科技龍頭",
+      "shares": 2000,
+      "unit": "股",
+      "avg_cost": 16.76,
+      "current_price": 36.99,
+      "market_value": 73980,
+      "pnl": 40460,
+      "return_pct": 120.7,
+      "type": "etf"
+    },
+    {
+      "ticker": "00910",
+      "name": "第一金太空衛星",
+      "shares": 1000,
+      "unit": "股",
+      "avg_cost": 56.75,
+      "current_price": 60.3,
+      "market_value": 60300,
+      "pnl": 3550,
+      "return_pct": 6.26,
+      "type": "etf"
+    },
+    {
+      "ticker": "1432",
+      "name": "大魯閣",
+      "shares": 1,
+      "unit": "股",
+      "avg_cost": 19.0,
+      "current_price": 17.85,
+      "market_value": 18,
+      "pnl": -1,
+      "return_pct": -6.05,
+      "type": "stock"
+    }
+  ]
+}

@@ -5,7 +5,6 @@ __pycache__/
 
 # Dashboard
 logs/
-data/*.json
 
 # OS
 .DS_Store

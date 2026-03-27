@@ -1,0 +1,521 @@
+{
+  "006208": {
+    "name": "富邦台50",
+    "total_holdings": 50,
+    "top_holdings": [
+      {
+        "name": "台積電",
+        "ticker": "2330.TW",
+        "weight": 48.52,
+        "pe": 27.48,
+        "pb": 8.71
+      },
+      {
+        "name": "鴻海",
+        "ticker": "2317.TW",
+        "weight": 5.42,
+        "pe": 14.9,
+        "pb": 1.57
+      },
+      {
+        "name": "聯發科",
+        "ticker": "2454.TW",
+        "weight": 4.81,
+        "pe": 24.02,
+        "pb": 6.32
+      },
+      {
+        "name": "台達電",
+        "ticker": "2308.TW",
+        "weight": 2.58,
+        "pe": 65.57,
+        "pb": 14.63
+      },
+      {
+        "name": "廣達",
+        "ticker": "2382.TW",
+        "weight": 2.55,
+        "pe": 15.28,
+        "pb": 4.57
+      },
+      {
+        "name": "富邦金",
+        "ticker": "2881.TW",
+        "weight": 2.15,
+        "pe": 10.48,
+        "pb": 1.27
+      },
+      {
+        "name": "國泰金",
+        "ticker": "2882.TW",
+        "weight": 1.98,
+        "pe": 10.0,
+        "pb": 1.13
+      },
+      {
+        "name": "中華電",
+        "ticker": "2412.TW",
+        "weight": 1.85,
+        "pe": 26.91,
+        "pb": 2.69
+      },
+      {
+        "name": "日月光投控",
+        "ticker": "3711.TW",
+        "weight": 1.72,
+        "pe": 39.72,
+        "pb": 4.46
+      },
+      {
+        "name": "聯電",
+        "ticker": "2303.TW",
+        "weight": 1.55,
+        "pe": 17.46,
+        "pb": 1.92
+      }
+    ],
+    "sector_allocation": [
+      {
+        "sector": "半導體",
+        "weight": 62.3
+      },
+      {
+        "sector": "金融",
+        "weight": 12.1
+      },
+      {
+        "sector": "電子零組件",
+        "weight": 8.5
+      },
+      {
+        "sector": "通訊網路",
+        "weight": 5.2
+      },
+      {
+        "sector": "電腦及週邊",
+        "weight": 4.8
+      },
+      {
+        "sector": "其他",
+        "weight": 7.1
+      }
+    ],
+    "region_allocation": [
+      {
+        "region": "台灣",
+        "weight": 100.0
+      }
+    ],
+    "coverage_links": {
+      "2330.TW": {
+        "name": "台積電",
+        "url": "https://github.com/ericcai-tw/My-TW-Coverage/blob/main/Pilot_Reports/Semiconductors/2330_台積電.md"
+      },
+      "2317.TW": {
+        "name": "鴻海",
+        "url": "https://github.com/ericcai-tw/My-TW-Coverage/blob/main/Pilot_Reports/Electronic Components/2317_鴻海.md"
+      },
+      "2454.TW": {
+        "name": "聯發科",
+        "url": "https://github.com/ericcai-tw/My-TW-Coverage/blob/main/Pilot_Reports/Semiconductors/2454_聯發科.md"
+      },
+      "2308.TW": {
+        "name": "台達電",
+        "url": "https://github.com/ericcai-tw/My-TW-Coverage/blob/main/Pilot_Reports/Electronic Components/2308_台達電.md"
+      },
+      "2382.TW": {
+        "name": "廣達",
+        "url": "https://github.com/ericcai-tw/My-TW-Coverage/blob/main/Pilot_Reports/Computer Hardware/2382_廣達.md"
+      },
+      "3711.TW": {
+        "name": "日月光投控",
+        "url": "https://github.com/ericcai-tw/My-TW-Coverage/blob/main/Pilot_Reports/Semiconductors/3711_日月光投控.md"
+      },
+      "2303.TW": {
+        "name": "聯電",
+        "url": "https://github.com/ericcai-tw/My-TW-Coverage/blob/main/Pilot_Reports/Semiconductors/2303_聯電.md"
+      }
+    }
+  },
+  "00878": {
+    "name": "國泰永續高股息",
+    "total_holdings": 30,
+    "top_holdings": [
+      {
+        "name": "華碩",
+        "ticker": "2357.TW",
+        "weight": 5.89,
+        "pe": 9.69,
+        "pb": 1.6
+      },
+      {
+        "name": "大聯大",
+        "ticker": "3702.TW",
+        "weight": 5.21,
+        "pe": 16.48,
+        "pb": 1.87
+      },
+      {
+        "name": "聯強",
+        "ticker": "2347.TW",
+        "weight": 4.85,
+        "pe": 15.71,
+        "pb": 1.66
+      },
+      {
+        "name": "廣達",
+        "ticker": "2382.TW",
+        "weight": 4.72,
+        "pe": 15.28,
+        "pb": 4.57
+      },
+      {
+        "name": "仁寶",
+        "ticker": "2324.TW",
+        "weight": 4.55,
+        "pe": 22.08,
+        "pb": 1.0
+      },
+      {
+        "name": "緯創",
+        "ticker": "3231.TW",
+        "weight": 4.38,
+        "pe": 15.14,
+        "pb": 2.27
+      },
+      {
+        "name": "英業達",
+        "ticker": "2356.TW",
+        "weight": 4.12,
+        "pe": 17.88,
+        "pb": 2.03
+      },
+      {
+        "name": "技嘉",
+        "ticker": "2376.TW",
+        "weight": 3.95,
+        "pe": 13.67,
+        "pb": 2.66
+      },
+      {
+        "name": "微星",
+        "ticker": "2377.TW",
+        "weight": 3.78,
+        "pe": 13.39,
+        "pb": 1.4
+      },
+      {
+        "name": "光寶",
+        "ticker": "2301.TW",
+        "weight": 3.62,
+        "pe": 23.07,
+        "pb": 3.84
+      }
+    ],
+    "sector_allocation": [
+      {
+        "sector": "電腦及週邊",
+        "weight": 35.2
+      },
+      {
+        "sector": "半導體",
+        "weight": 22.8
+      },
+      {
+        "sector": "電子零組件",
+        "weight": 18.5
+      },
+      {
+        "sector": "通訊網路",
+        "weight": 8.3
+      },
+      {
+        "sector": "金融",
+        "weight": 7.8
+      },
+      {
+        "sector": "其他",
+        "weight": 7.4
+      }
+    ],
+    "region_allocation": [
+      {
+        "region": "台灣",
+        "weight": 100.0
+      }
+    ],
+    "coverage_links": {
+      "2357.TW": {
+        "name": "華碩",
+        "url": "https://github.com/ericcai-tw/My-TW-Coverage/blob/main/Pilot_Reports/Computer Hardware/2357_華碩.md"
+      },
+      "2382.TW": {
+        "name": "廣達",
+        "url": "https://github.com/ericcai-tw/My-TW-Coverage/blob/main/Pilot_Reports/Computer Hardware/2382_廣達.md"
+      },
+      "2324.TW": {
+        "name": "仁寶",
+        "url": "https://github.com/ericcai-tw/My-TW-Coverage/blob/main/Pilot_Reports/Computer Hardware/2324_仁寶.md"
+      },
+      "3231.TW": {
+        "name": "緯創",
+        "url": "https://github.com/ericcai-tw/My-TW-Coverage/blob/main/Pilot_Reports/Computer Hardware/3231_緯創.md"
+      },
+      "2356.TW": {
+        "name": "英業達",
+        "url": "https://github.com/ericcai-tw/My-TW-Coverage/blob/main/Pilot_Reports/Computer Hardware/2356_英業達.md"
+      }
+    }
+  },
+  "00881": {
+    "name": "國泰台灣科技龍頭",
+    "total_holdings": 15,
+    "top_holdings": [
+      {
+        "name": "台積電",
+        "ticker": "2330.TW",
+        "weight": 30.25,
+        "pe": 27.48,
+        "pb": 8.71
+      },
+      {
+        "name": "聯發科",
+        "ticker": "2454.TW",
+        "weight": 10.82,
+        "pe": 24.02,
+        "pb": 6.32
+      },
+      {
+        "name": "鴻海",
+        "ticker": "2317.TW",
+        "weight": 8.15,
+        "pe": 14.9,
+        "pb": 1.57
+      },
+      {
+        "name": "台達電",
+        "ticker": "2308.TW",
+        "weight": 6.33,
+        "pe": 65.57,
+        "pb": 14.63
+      },
+      {
+        "name": "日月光投控",
+        "ticker": "3711.TW",
+        "weight": 5.72,
+        "pe": 39.72,
+        "pb": 4.46
+      },
+      {
+        "name": "聯電",
+        "ticker": "2303.TW",
+        "weight": 5.18,
+        "pe": 17.46,
+        "pb": 1.92
+      },
+      {
+        "name": "廣達",
+        "ticker": "2382.TW",
+        "weight": 4.95,
+        "pe": 15.28,
+        "pb": 4.57
+      },
+      {
+        "name": "瑞昱",
+        "ticker": "2379.TW",
+        "weight": 4.68,
+        "pe": 17.62,
+        "pb": 4.88
+      },
+      {
+        "name": "聯詠",
+        "ticker": "3034.TW",
+        "weight": 4.22,
+        "pe": 14.86,
+        "pb": 3.58
+      },
+      {
+        "name": "矽力-KY",
+        "ticker": "6415.TW",
+        "weight": 3.85,
+        "pe": 46.66,
+        "pb": 3.05
+      }
+    ],
+    "sector_allocation": [
+      {
+        "sector": "半導體",
+        "weight": 72.5
+      },
+      {
+        "sector": "電子零組件",
+        "weight": 12.3
+      },
+      {
+        "sector": "電腦及週邊",
+        "weight": 8.8
+      },
+      {
+        "sector": "通訊網路",
+        "weight": 6.4
+      }
+    ],
+    "region_allocation": [
+      {
+        "region": "台灣",
+        "weight": 100.0
+      }
+    ],
+    "coverage_links": {
+      "2330.TW": {
+        "name": "台積電",
+        "url": "https://github.com/ericcai-tw/My-TW-Coverage/blob/main/Pilot_Reports/Semiconductors/2330_台積電.md"
+      },
+      "2454.TW": {
+        "name": "聯發科",
+        "url": "https://github.com/ericcai-tw/My-TW-Coverage/blob/main/Pilot_Reports/Semiconductors/2454_聯發科.md"
+      },
+      "2317.TW": {
+        "name": "鴻海",
+        "url": "https://github.com/ericcai-tw/My-TW-Coverage/blob/main/Pilot_Reports/Electronic Components/2317_鴻海.md"
+      },
+      "2308.TW": {
+        "name": "台達電",
+        "url": "https://github.com/ericcai-tw/My-TW-Coverage/blob/main/Pilot_Reports/Electronic Components/2308_台達電.md"
+      },
+      "3711.TW": {
+        "name": "日月光投控",
+        "url": "https://github.com/ericcai-tw/My-TW-Coverage/blob/main/Pilot_Reports/Semiconductors/3711_日月光投控.md"
+      },
+      "2303.TW": {
+        "name": "聯電",
+        "url": "https://github.com/ericcai-tw/My-TW-Coverage/blob/main/Pilot_Reports/Semiconductors/2303_聯電.md"
+      },
+      "2382.TW": {
+        "name": "廣達",
+        "url": "https://github.com/ericcai-tw/My-TW-Coverage/blob/main/Pilot_Reports/Computer Hardware/2382_廣達.md"
+      },
+      "2379.TW": {
+        "name": "瑞昱",
+        "url": "https://github.com/ericcai-tw/My-TW-Coverage/blob/main/Pilot_Reports/Semiconductors/2379_瑞昱.md"
+      },
+      "3034.TW": {
+        "name": "聯詠",
+        "url": "https://github.com/ericcai-tw/My-TW-Coverage/blob/main/Pilot_Reports/Semiconductors/3034_聯詠.md"
+      }
+    }
+  },
+  "00910": {
+    "name": "第一金太空衛星",
+    "total_holdings": 30,
+    "top_holdings": [
+      {
+        "name": "Planet Labs",
+        "ticker": "PL",
+        "weight": 8.24,
+        "pe": null,
+        "pb": 57.65
+      },
+      {
+        "name": "Rocket Lab",
+        "ticker": "RKLB",
+        "weight": 7.55,
+        "pe": null,
+        "pb": 20.81
+      },
+      {
+        "name": "L3Harris Technologies",
+        "ticker": "LHX",
+        "weight": 6.12,
+        "pe": 41.0,
+        "pb": 3.32
+      },
+      {
+        "name": "Northrop Grumman",
+        "ticker": "NOC",
+        "weight": 5.88,
+        "pe": 23.81,
+        "pb": 5.89
+      },
+      {
+        "name": "Iridium Communications",
+        "ticker": "IRDM",
+        "weight": 5.45,
+        "pe": 26.71,
+        "pb": 6.42
+      },
+      {
+        "name": "Trimble",
+        "ticker": "TRMB",
+        "weight": 4.92,
+        "pe": 37.19,
+        "pb": 2.65
+      },
+      {
+        "name": "Garmin",
+        "ticker": "GRMN",
+        "weight": 4.78,
+        "pe": 27.48,
+        "pb": 5.07
+      },
+      {
+        "name": "SES S.A.",
+        "ticker": "SES",
+        "weight": 4.35,
+        "pe": null,
+        "pb": 1.72
+      },
+      {
+        "name": "Viasat",
+        "ticker": "VSAT",
+        "weight": 4.12,
+        "pe": null,
+        "pb": 1.42
+      },
+      {
+        "name": "BlackSky Technology",
+        "ticker": "BKSY",
+        "weight": 3.88,
+        "pe": null,
+        "pb": 10.66
+      }
+    ],
+    "sector_allocation": [
+      {
+        "sector": "航太與國防",
+        "weight": 48.22
+      },
+      {
+        "sector": "通訊服務",
+        "weight": 22.15
+      },
+      {
+        "sector": "資訊科技",
+        "weight": 18.33
+      },
+      {
+        "sector": "工業",
+        "weight": 11.3
+      }
+    ],
+    "region_allocation": [
+      {
+        "region": "美國",
+        "weight": 60.82
+      },
+      {
+        "region": "歐洲",
+        "weight": 18.45
+      },
+      {
+        "region": "亞太",
+        "weight": 12.33
+      },
+      {
+        "region": "其他",
+        "weight": 8.4
+      }
+    ],
+    "coverage_links": {}
+  }
+}
