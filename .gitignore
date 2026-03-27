@@ -1,0 +1,15 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Dashboard
+logs/
+data/*.json
+
+# OS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
