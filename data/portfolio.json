@@ -1,9 +1,9 @@
 {
-  "updated_at": "2026-03-27T17:59:55",
+  "updated_at": "2026-03-30T22:22:21",
   "summary": {
-    "total_value": 1423443,
-    "total_pnl": 386118,
-    "total_return": 37.2
+    "total_value": 1397008,
+    "total_pnl": 359682,
+    "total_return": 34.7
   },
   "holdings": [
     {
@@ -12,10 +12,10 @@
       "shares": 6363,
       "unit": "股",
       "avg_cost": 120.32,
-      "current_price": 174.45,
-      "market_value": 1110025,
-      "pnl": 344429,
-      "return_pct": 44.99,
+      "current_price": 171.35,
+      "market_value": 1090300,
+      "pnl": 324704,
+      "return_pct": 42.41,
       "type": "etf"
     },
     {
@@ -24,10 +24,10 @@
       "shares": 8000,
       "unit": "股",
       "avg_cost": 22.68,
-      "current_price": 22.39,
-      "market_value": 179120,
-      "pnl": -2320,
-      "return_pct": -1.28,
+      "current_price": 22.11,
+      "market_value": 176880,
+      "pnl": -4560,
+      "return_pct": -2.51,
       "type": "etf"
     },
     {
@@ -36,10 +36,10 @@
       "shares": 2000,
       "unit": "股",
       "avg_cost": 16.76,
-      "current_price": 36.99,
-      "market_value": 73980,
-      "pnl": 40460,
-      "return_pct": 120.7,
+      "current_price": 36.28,
+      "market_value": 72560,
+      "pnl": 39040,
+      "return_pct": 116.47,
       "type": "etf"
     },
     {
@@ -48,10 +48,10 @@
       "shares": 1000,
       "unit": "股",
       "avg_cost": 56.75,
-      "current_price": 60.3,
-      "market_value": 60300,
-      "pnl": 3550,
-      "return_pct": 6.26,
+      "current_price": 57.25,
+      "market_value": 57250,
+      "pnl": 500,
+      "return_pct": 0.88,
       "type": "etf"
     },
     {
@@ -60,10 +60,10 @@
       "shares": 1,
       "unit": "股",
       "avg_cost": 19.0,
-      "current_price": 17.85,
+      "current_price": 17.55,
       "market_value": 18,
       "pnl": -1,
-      "return_pct": -6.05,
+      "return_pct": -7.63,
       "type": "stock"
     }
   ]

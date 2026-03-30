@@ -1,0 +1,31 @@
+{
+  "items": [
+    {
+      "ticker": "2330",
+      "yf_ticker": "2330.TW",
+      "name": "台積電",
+      "target_price": 950,
+      "note": "核心持股候選，等回檔",
+      "current_price": 1780.0,
+      "change_pct": -2.2
+    },
+    {
+      "ticker": "00919",
+      "yf_ticker": "00919.TW",
+      "name": "群益台灣精選高息",
+      "target_price": 23,
+      "note": "高息 ETF 比較對象",
+      "current_price": 22.3,
+      "change_pct": -0.98
+    },
+    {
+      "ticker": "3661",
+      "yf_ticker": "3661.TW",
+      "name": "世芯-KY",
+      "target_price": 2200,
+      "note": "AI ASIC 供應鏈",
+      "current_price": 2750.0,
+      "change_pct": -9.54
+    }
+  ]
+}
