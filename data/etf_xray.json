@@ -7,71 +7,71 @@
         "name": "台積電",
         "ticker": "2330.TW",
         "weight": 48.52,
-        "pe": 26.87,
-        "pb": 8.52
+        "pe": null,
+        "pb": null
       },
       {
         "name": "鴻海",
         "ticker": "2317.TW",
         "weight": 5.42,
-        "pe": 14.47,
-        "pb": 1.53
+        "pe": null,
+        "pb": null
       },
       {
         "name": "聯發科",
         "ticker": "2454.TW",
         "weight": 4.81,
-        "pe": 22.85,
-        "pb": 6.02
+        "pe": null,
+        "pb": null
       },
       {
         "name": "台達電",
         "ticker": "2308.TW",
         "weight": 2.58,
-        "pe": 64.29,
-        "pb": 14.39
+        "pe": null,
+        "pb": null
       },
       {
         "name": "廣達",
         "ticker": "2382.TW",
         "weight": 2.55,
-        "pe": 14.87,
-        "pb": 4.45
+        "pe": null,
+        "pb": null
       },
       {
         "name": "富邦金",
         "ticker": "2881.TW",
         "weight": 2.15,
-        "pe": 10.32,
-        "pb": 1.25
+        "pe": null,
+        "pb": null
       },
       {
         "name": "國泰金",
         "ticker": "2882.TW",
         "weight": 1.98,
-        "pe": 9.97,
-        "pb": 1.13
+        "pe": null,
+        "pb": null
       },
       {
         "name": "中華電",
         "ticker": "2412.TW",
         "weight": 1.85,
-        "pe": 26.91,
-        "pb": 2.69
+        "pe": null,
+        "pb": null
       },
       {
         "name": "日月光投控",
         "ticker": "3711.TW",
         "weight": 1.72,
-        "pe": 39.85,
-        "pb": 4.46
+        "pe": null,
+        "pb": null
       },
       {
         "name": "聯電",
         "ticker": "2303.TW",
         "weight": 1.55,
-        "pe": 17.22,
-        "pb": 1.89
+        "pe": null,
+        "pb": null
       }
     ],
     "sector_allocation": [
@@ -145,71 +145,71 @@
         "name": "華碩",
         "ticker": "2357.TW",
         "weight": 5.89,
-        "pe": 9.45,
-        "pb": 1.56
+        "pe": null,
+        "pb": null
       },
       {
         "name": "大聯大",
         "ticker": "3702.TW",
         "weight": 5.21,
-        "pe": 16.17,
-        "pb": 1.83
+        "pe": null,
+        "pb": null
       },
       {
         "name": "聯強",
         "ticker": "2347.TW",
         "weight": 4.85,
-        "pe": 15.14,
-        "pb": 1.6
+        "pe": null,
+        "pb": null
       },
       {
         "name": "廣達",
         "ticker": "2382.TW",
         "weight": 4.72,
-        "pe": 14.87,
-        "pb": 4.45
+        "pe": null,
+        "pb": null
       },
       {
         "name": "仁寶",
         "ticker": "2324.TW",
         "weight": 4.55,
-        "pe": 20.62,
-        "pb": 0.93
+        "pe": null,
+        "pb": null
       },
       {
         "name": "緯創",
         "ticker": "3231.TW",
         "weight": 4.38,
-        "pe": 14.96,
-        "pb": 2.25
+        "pe": null,
+        "pb": null
       },
       {
         "name": "英業達",
         "ticker": "2356.TW",
         "weight": 4.12,
-        "pe": 17.18,
-        "pb": 1.95
+        "pe": null,
+        "pb": null
       },
       {
         "name": "技嘉",
         "ticker": "2376.TW",
         "weight": 3.95,
-        "pe": 13.27,
-        "pb": 2.58
+        "pe": null,
+        "pb": null
       },
       {
         "name": "微星",
         "ticker": "2377.TW",
         "weight": 3.78,
-        "pe": 13.08,
-        "pb": 1.37
+        "pe": null,
+        "pb": null
       },
       {
         "name": "光寶",
         "ticker": "2301.TW",
         "weight": 3.62,
-        "pe": 22.65,
-        "pb": 3.78
+        "pe": null,
+        "pb": null
       }
     ],
     "sector_allocation": [
@@ -275,71 +275,71 @@
         "name": "台積電",
         "ticker": "2330.TW",
         "weight": 30.25,
-        "pe": 26.87,
-        "pb": 8.52
+        "pe": null,
+        "pb": null
       },
       {
         "name": "聯發科",
         "ticker": "2454.TW",
         "weight": 10.82,
-        "pe": 22.85,
-        "pb": 6.02
+        "pe": null,
+        "pb": null
       },
       {
         "name": "鴻海",
         "ticker": "2317.TW",
         "weight": 8.15,
-        "pe": 14.47,
-        "pb": 1.53
+        "pe": null,
+        "pb": null
       },
       {
         "name": "台達電",
         "ticker": "2308.TW",
         "weight": 6.33,
-        "pe": 64.29,
-        "pb": 14.39
+        "pe": null,
+        "pb": null
       },
       {
         "name": "日月光投控",
         "ticker": "3711.TW",
         "weight": 5.72,
-        "pe": 39.85,
-        "pb": 4.46
+        "pe": null,
+        "pb": null
       },
       {
         "name": "聯電",
         "ticker": "2303.TW",
         "weight": 5.18,
-        "pe": 17.22,
-        "pb": 1.89
+        "pe": null,
+        "pb": null
       },
       {
         "name": "廣達",
         "ticker": "2382.TW",
         "weight": 4.95,
-        "pe": 14.87,
-        "pb": 4.45
+        "pe": null,
+        "pb": null
       },
       {
         "name": "瑞昱",
         "ticker": "2379.TW",
         "weight": 4.68,
-        "pe": 17.4,
-        "pb": 4.82
+        "pe": null,
+        "pb": null
       },
       {
         "name": "聯詠",
         "ticker": "3034.TW",
         "weight": 4.22,
-        "pe": 14.56,
-        "pb": 3.51
+        "pe": null,
+        "pb": null
       },
       {
         "name": "矽力-KY",
         "ticker": "6415.TW",
         "weight": 3.85,
-        "pe": 45.53,
-        "pb": 2.97
+        "pe": null,
+        "pb": null
       }
     ],
     "sector_allocation": [
@@ -414,70 +414,70 @@
         "ticker": "PL",
         "weight": 8.24,
         "pe": null,
-        "pb": 51.4
+        "pb": null
       },
       {
         "name": "Rocket Lab",
         "ticker": "RKLB",
         "weight": 7.55,
         "pe": null,
-        "pb": 18.68
+        "pb": null
       },
       {
         "name": "L3Harris Technologies",
         "ticker": "LHX",
         "weight": 6.12,
-        "pe": 40.31,
-        "pb": 3.28
+        "pe": null,
+        "pb": null
       },
       {
         "name": "Northrop Grumman",
         "ticker": "NOC",
         "weight": 5.88,
-        "pe": 23.27,
-        "pb": 5.76
+        "pe": null,
+        "pb": null
       },
       {
         "name": "Iridium Communications",
         "ticker": "IRDM",
         "weight": 5.45,
-        "pe": 25.61,
-        "pb": 6.16
+        "pe": null,
+        "pb": null
       },
       {
         "name": "Trimble",
         "ticker": "TRMB",
         "weight": 4.92,
-        "pe": 35.93,
-        "pb": 2.56
+        "pe": null,
+        "pb": null
       },
       {
         "name": "Garmin",
         "ticker": "GRMN",
         "weight": 4.78,
-        "pe": 26.78,
-        "pb": 4.93
+        "pe": null,
+        "pb": null
       },
       {
         "name": "SES S.A.",
         "ticker": "SES",
         "weight": 4.35,
         "pe": null,
-        "pb": 1.62
+        "pb": null
       },
       {
         "name": "Viasat",
         "ticker": "VSAT",
         "weight": 4.12,
         "pe": null,
-        "pb": 1.36
+        "pb": null
       },
       {
         "name": "BlackSky Technology",
         "ticker": "BKSY",
         "weight": 3.88,
         "pe": null,
-        "pb": 8.5
+        "pb": null
       }
     ],
     "sector_allocation": [
