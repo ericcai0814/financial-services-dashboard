@@ -178,11 +178,92 @@ let expandedTicker = null;
 let xrayData = null;
 const chartInstances = {};
 
+// ─── 排序狀態 ────────────────────────────────
+let holdingsData = null;
+let sortKey = 'market_value';
+let sortDir = 'desc';
+
+const STRING_KEYS = new Set(['ticker', 'name']);
+
+function sortHoldings(holdings) {
+  if (sortDir === 'default') return [...holdings];
+  const dir = sortDir === 'asc' ? 1 : -1;
+  return [...holdings].sort((a, b) => {
+    const av = a[sortKey], bv = b[sortKey];
+    if (av == null && bv == null) return 0;
+    if (av == null) return 1;
+    if (bv == null) return -1;
+    if (STRING_KEYS.has(sortKey)) return dir * av.localeCompare(bv, 'zh-TW');
+    return dir * (av - bv);
+  });
+}
+
+function initSortHeaders() {
+  const ths = document.querySelectorAll('thead .table-header th[data-sort-key]');
+  ths.forEach((th) => {
+    const key = th.dataset.sortKey;
+    th.setAttribute('tabindex', '0');
+    th.style.cursor = 'pointer';
+    th.appendChild(el('span', { className: 'sort-indicator' }));
+
+    const handleSort = () => {
+      if (!holdingsData) return;
+      if (sortKey === key) {
+        sortDir = sortDir === 'default' ? 'asc' : sortDir === 'asc' ? 'desc' : 'default';
+      } else {
+        sortKey = key;
+        sortDir = 'asc';
+      }
+
+      if (expandedTicker) {
+        expandedTicker = null;
+        destroyXrayCharts();
+        const xrayContainer = document.getElementById('xray-container');
+        xrayContainer.classList.add('hidden');
+        xrayContainer.replaceChildren();
+        const prev = document.querySelector('#holdings-body tr.expanded');
+        if (prev) {
+          prev.classList.remove('expanded');
+          prev.querySelector('.expand-indicator')?.classList.remove('open');
+        }
+      }
+
+      updateSortIndicators();
+      renderHoldings(holdingsData);
+    };
+
+    th.addEventListener('click', handleSort);
+    th.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleSort();
+      }
+    });
+  });
+
+  updateSortIndicators();
+}
+
+function updateSortIndicators() {
+  const ths = document.querySelectorAll('thead .table-header th[data-sort-key]');
+  ths.forEach((th) => {
+    const indicator = th.querySelector('.sort-indicator');
+    if (th.dataset.sortKey === sortKey && sortDir !== 'default') {
+      indicator.textContent = sortDir === 'asc' ? ' ▲' : ' ▼';
+      th.setAttribute('aria-sort', sortDir === 'asc' ? 'ascending' : 'descending');
+    } else {
+      indicator.textContent = '';
+      th.removeAttribute('aria-sort');
+    }
+  });
+}
+
 function renderHoldings(holdings) {
   const tbody = document.getElementById('holdings-body');
   tbody.replaceChildren();
 
-  for (const h of holdings) {
+  const sorted = sortHoldings(holdings);
+  for (const h of sorted) {
     const isEtf = h.type === 'etf';
     const indicator = el('span', {
       className: `expand-indicator ${isEtf ? '' : 'invisible'}`,
@@ -657,7 +738,9 @@ async function init() {
     renderSummary(portfolio.summary);
     renderTrendChart(history);
     renderAllocationChart(portfolio.holdings);
+    holdingsData = portfolio.holdings;
     renderHoldings(portfolio.holdings);
+    initSortHeaders();
     renderOverlap(overlap);
     renderExposure(exposure);
     renderWatchlist(watchlist);

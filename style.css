@@ -547,6 +547,35 @@ body {
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+/* ─── Sortable Table Headers ─────────────────── */
+.table-header th {
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: color 0.2s ease;
+  white-space: nowrap;
+}
+
+.table-header th:hover {
+  color: var(--text-secondary);
+}
+
+.table-header th[aria-sort] {
+  color: var(--brand-primary);
+}
+
+.sort-indicator {
+  font-size: 0.625rem;
+  vertical-align: middle;
+}
+
+.table-header th:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: -2px;
+  border-radius: 4px;
+}
+
 /* ─── Scrollbar (Webkit) ─────────────────────── */
 ::-webkit-scrollbar {
   width: 6px;

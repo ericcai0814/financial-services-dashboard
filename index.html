@@ -81,15 +81,16 @@
         <div class="card lg:col-span-3 overflow-x-auto">
           <h2 class="section-title mb-4">持倉明細</h2>
           <table class="w-full text-sm">
+            <caption class="sr-only">持倉明細，可點擊欄位標題排序</caption>
             <thead>
               <tr class="table-header">
-                <th class="text-left py-2 px-2">代號</th>
-                <th class="text-left py-2 px-2">名稱</th>
-                <th class="text-right py-2 px-2">庫存</th>
-                <th class="text-right py-2 px-2">現價</th>
-                <th class="text-right py-2 px-2">市值</th>
-                <th class="text-right py-2 px-2">損益</th>
-                <th class="text-right py-2 px-2">報酬率</th>
+                <th class="text-left py-2 px-2" data-sort-key="ticker">代號</th>
+                <th class="text-left py-2 px-2" data-sort-key="name">名稱</th>
+                <th class="text-right py-2 px-2" data-sort-key="shares">庫存</th>
+                <th class="text-right py-2 px-2" data-sort-key="current_price">現價</th>
+                <th class="text-right py-2 px-2" data-sort-key="market_value">市值</th>
+                <th class="text-right py-2 px-2" data-sort-key="pnl">損益</th>
+                <th class="text-right py-2 px-2" data-sort-key="return_pct">報酬率</th>
               </tr>
             </thead>
             <tbody id="holdings-body">
