@@ -171,7 +171,7 @@ COVERAGE_LINKS = {
     "3034.TW": {"name": "聯詠", "path": "Semiconductors/3034_聯詠.md"},
 }
 
-GITHUB_BASE = "https://github.com/ericcai-tw/My-TW-Coverage/blob/main/Pilot_Reports"
+GITHUB_BASE = "https://github.com/Timeverse/My-TW-Coverage/blob/master/Pilot_Reports"
 
 
 def fetch_current_prices(holdings):

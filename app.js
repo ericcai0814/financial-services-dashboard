@@ -155,7 +155,8 @@ function renderAllocationChart(holdings) {
             padding: 12,
             font: { family: 'Syne', size: 12 },
             usePointStyle: true,
-            pointStyleWidth: 10,
+            boxWidth: 10,
+            boxHeight: 10,
           },
         },
         tooltip: {
@@ -356,7 +357,8 @@ function donutOptions() {
           padding: 8,
           font: { family: 'Syne', size: 11 },
           usePointStyle: true,
-          pointStyleWidth: 8,
+          boxWidth: 8,
+          boxHeight: 8,
         },
       },
       tooltip: {
