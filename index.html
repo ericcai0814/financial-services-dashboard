@@ -42,8 +42,15 @@
     </section>
 
     <!-- Trend Line Chart -->
+    <!-- Trend + Benchmark -->
     <section class="card">
-      <h2 class="text-base font-semibold text-slate-300 mb-4">90 天市值走勢</h2>
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-base font-semibold text-slate-300">90 天市值走勢</h2>
+        <div class="flex gap-2">
+          <button id="btn-absolute" class="chart-tab active" type="button">市值</button>
+          <button id="btn-indexed" class="chart-tab" type="button">vs 大盤</button>
+        </div>
+      </div>
       <div class="w-full" style="height: 280px;">
         <canvas id="trend-chart"></canvas>
       </div>
@@ -98,8 +105,20 @@
       </div>
     </section>
 
+    <!-- Real Exposure -->
+    <section id="exposure-section" class="card hidden">
+      <h2 class="text-base font-semibold text-slate-300 mb-4">實質曝險穿透</h2>
+      <div id="exposure-content"></div>
+    </section>
+
     <!-- ETF X-Ray (expandable) -->
     <section id="xray-container" class="space-y-4 hidden">
+    </section>
+
+    <!-- Watchlist -->
+    <section id="watchlist-section" class="card hidden">
+      <h2 class="text-base font-semibold text-slate-300 mb-4">觀察清單</h2>
+      <div id="watchlist-content" class="overflow-x-auto"></div>
     </section>
 
   </main>

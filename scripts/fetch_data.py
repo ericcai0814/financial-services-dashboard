@@ -365,9 +365,51 @@ def build_overlap(etf_components):
     return {"matrix": matrix, "overlapping_stocks": overlapping}
 
 
+def build_exposure(etf_components, portfolio_holdings):
+    """穿透 ETF 計算每檔個股的實質曝險金額。"""
+    # portfolio_holdings: list of dicts with ticker, market_value, type
+    holding_values = {h["ticker"]: h["market_value"] for h in portfolio_holdings}
+
+    exposure = {}  # ticker -> {name, amount, sources: [{etf, weight, amount}]}
+
+    for h in portfolio_holdings:
+        if h["type"] != "etf" or h["ticker"] not in etf_components:
+            # 個股直接算
+            exposure[h["ticker"]] = {
+                "name": h["name"],
+                "amount": h["market_value"],
+                "sources": [{"etf": h["ticker"], "etf_name": h["name"],
+                             "weight": 100.0, "amount": h["market_value"]}],
+            }
+            continue
+
+        etf = etf_components[h["ticker"]]
+        etf_value = h["market_value"]
+        for comp in etf["top_holdings"]:
+            amount = round(etf_value * comp["weight"] / 100)
+            entry = exposure.setdefault(comp["ticker"], {
+                "name": comp["name"], "amount": 0, "sources": [],
+            })
+            entry["amount"] += amount
+            entry["sources"].append({
+                "etf": h["ticker"], "etf_name": h["name"],
+                "weight": comp["weight"], "amount": amount,
+            })
+
+    # 排序：金額大到小
+    sorted_exposure = sorted(exposure.values(), key=lambda x: x["amount"], reverse=True)
+
+    total_portfolio = sum(h["market_value"] for h in portfolio_holdings)
+    for e in sorted_exposure:
+        e["pct"] = round(e["amount"] / total_portfolio * 100, 2) if total_portfolio > 0 else 0
+
+    return {"total_portfolio": total_portfolio, "exposures": sorted_exposure}
+
+
 def build_history(holdings):
-    """拉取 90 天歷史收盤價，計算每日持倉市值。"""
-    tickers_str = " ".join(h["yf_ticker"] for h in holdings)
+    """拉取 90 天歷史收盤價，計算每日持倉市值 + 大盤比較。"""
+    all_tickers = [h["yf_ticker"] for h in holdings] + ["^TWII"]
+    tickers_str = " ".join(all_tickers)
     print(f"正在拉取 90 天歷史資料: {tickers_str}")
 
     data = yf.download(tickers_str, period="3mo", group_by="ticker", progress=False)
@@ -384,10 +426,7 @@ def build_history(holdings):
         t = h["yf_ticker"]
         cost_basis += h["avg_cost"] * h["shares"]
         try:
-            if len(holdings) == 1:
-                closes = data["Close"]
-            else:
-                closes = data[(t, "Close")]
+            closes = data[(t, "Close")]
             daily_values = []
             last_valid = h["avg_cost"]
             for val in closes:
@@ -405,11 +444,35 @@ def build_history(holdings):
 
     total_value = [round(v) for v in total_value]
 
+    # 大盤走勢（歸一化為 base-100）
+    benchmark = []
+    try:
+        twii_closes = data[("^TWII", "Close")]
+        base = None
+        for val in twii_closes:
+            fv = float(val)
+            if fv != fv:
+                benchmark.append(benchmark[-1] if benchmark else 100)
+                continue
+            if base is None:
+                base = fv
+            benchmark.append(round(fv / base * 100, 2))
+    except (KeyError, IndexError):
+        print("  ⚠ 加權指數無資料")
+
+    # 持倉也歸一化 base-100
+    portfolio_indexed = []
+    if total_value and total_value[0] > 0:
+        base_val = total_value[0]
+        portfolio_indexed = [round(v / base_val * 100, 2) for v in total_value]
+
     return {
         "dates": dates,
         "total_value": total_value,
         "cost_basis": round(cost_basis),
         "per_holding": per_holding,
+        "benchmark": benchmark,
+        "portfolio_indexed": portfolio_indexed,
     }
 
 
@@ -455,14 +518,47 @@ def main():
     print(f"  重疊個股: {len(overlap['overlapping_stocks'])} 檔")
     print(f"  ETF 交叉對: {len(overlap['matrix'])} 組")
 
-    # Step 5: 建構 history.json
+    # Step 5: 建構 exposure.json（實質曝險穿透）
+    exposure = build_exposure(ETF_COMPONENTS, portfolio["holdings"])
+    path = write_json(exposure, "exposure.json")
+    print(f"\n✓ exposure.json → {path}")
+    top3 = exposure["exposures"][:3]
+    for e in top3:
+        print(f"  {e['name']}: ${e['amount']:,} ({e['pct']}%)")
+
+    # Step 6: 建構 history.json（含大盤比較）
     history = build_history(holdings)
     if history:
         path = write_json(history, "history.json")
         print(f"\n✓ history.json → {path}")
         print(f"  天數: {len(history['dates'])}")
+        if history["benchmark"]:
+            print(f"  大盤比較: 起始 100 → 最新 {history['benchmark'][-1]}")
+            print(f"  持倉指數: 起始 100 → 最新 {history['portfolio_indexed'][-1]}")
     else:
         print("\n⚠ history.json 跳過（無歷史資料）")
+
+    # Step 7: 載入觀察清單（若存在）
+    watchlist_file = os.path.join(DATA_DIR, "watchlist.json")
+    if os.path.exists(watchlist_file):
+        with open(watchlist_file, "r", encoding="utf-8") as f:
+            watchlist = json.load(f)
+        # 拉取觀察清單即時價格
+        watch_tickers = [w["yf_ticker"] for w in watchlist["items"]]
+        if watch_tickers:
+            print(f"\n正在拉取觀察清單報價...")
+            for w in watchlist["items"]:
+                try:
+                    info = yf.Ticker(w["yf_ticker"]).info
+                    w["current_price"] = round(info.get("currentPrice") or info.get("regularMarketPrice", 0), 2)
+                    w["change_pct"] = round(info.get("regularMarketChangePercent", 0), 2)
+                except Exception:
+                    w["current_price"] = None
+                    w["change_pct"] = None
+            path = write_json(watchlist, "watchlist_live.json")
+            print(f"✓ watchlist_live.json → {path}")
+    else:
+        print("\n⚠ watchlist.json 不存在，跳過")
 
     print("\n🎉 資料更新完成！")
 

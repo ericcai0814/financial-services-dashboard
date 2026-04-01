@@ -100,13 +100,15 @@ async function fetchJson(path) {
 }
 
 async function loadData() {
-  const [portfolio, xray, overlap, history] = await Promise.all([
+  const [portfolio, xray, overlap, history, exposure, watchlist] = await Promise.all([
     fetchJson('data/portfolio.json'),
     fetchJson('data/etf_xray.json'),
     fetchJson('data/overlap.json'),
     fetchJson('data/history.json'),
+    fetchJson('data/exposure.json'),
+    fetchJson('data/watchlist_live.json'),
   ]);
-  return { portfolio, xray, overlap, history };
+  return { portfolio, xray, overlap, history, exposure, watchlist };
 }
 
 // ─── 摘要卡片 ──────────────────────────────────
@@ -376,87 +378,114 @@ function destroyXrayCharts() {
   }
 }
 
-// ─── 趨勢線圖 ─────────────────────────────────
+// ─── 趨勢線圖（含大盤比較切換）─────────────────
+let historyData = null;
+let trendMode = 'absolute'; // 'absolute' | 'indexed'
+
 function renderTrendChart(history) {
   if (!history) return;
-  const ctx = document.getElementById('trend-chart').getContext('2d');
+  historyData = history;
+  buildTrendChart();
 
-  const costLine = new Array(history.dates.length).fill(history.cost_basis);
-
-  chartInstances.trend = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: history.dates,
-      datasets: [
-        {
-          label: '總市值',
-          data: history.total_value,
-          borderColor: '#3B82F6',
-          backgroundColor: 'rgba(59, 130, 246, 0.1)',
-          fill: true,
-          tension: 0.3,
-          pointRadius: 0,
-          pointHitRadius: 10,
-          borderWidth: 2,
-        },
-        {
-          label: '成本線',
-          data: costLine,
-          borderColor: '#64748B',
-          borderDash: [6, 4],
-          pointRadius: 0,
-          borderWidth: 1.5,
-          fill: false,
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      interaction: { intersect: false, mode: 'index' },
-      scales: {
-        x: {
-          ticks: {
-            color: '#64748B',
-            font: { family: 'IBM Plex Sans', size: 10 },
-            maxTicksLimit: 8,
-          },
-          grid: { color: '#1E293B' },
-        },
-        y: {
-          ticks: {
-            color: '#64748B',
-            font: { family: 'IBM Plex Sans', size: 10 },
-            callback: (v) => formatCurrency(v),
-          },
-          grid: { color: '#1E293B' },
-        },
-      },
-      plugins: {
-        legend: {
-          labels: {
-            color: '#94A3B8',
-            font: { family: 'IBM Plex Sans', size: 11 },
-            usePointStyle: true,
-          },
-        },
-        tooltip: {
-          callbacks: {
-            label: (ctx) => {
-              const val = ctx.raw;
-              if (ctx.datasetIndex === 0) {
-                const cost = history.cost_basis;
-                const pnl = val - cost;
-                const sign = pnl >= 0 ? '+' : '';
-                return ` 市值: ${formatCurrency(val)} (${sign}${formatCurrency(pnl)})`;
-              }
-              return ` 成本: ${formatCurrency(val)}`;
-            },
-          },
-        },
-      },
-    },
+  document.getElementById('btn-absolute').addEventListener('click', () => {
+    trendMode = 'absolute';
+    document.getElementById('btn-absolute').classList.add('active');
+    document.getElementById('btn-indexed').classList.remove('active');
+    buildTrendChart();
   });
+  document.getElementById('btn-indexed').addEventListener('click', () => {
+    trendMode = 'indexed';
+    document.getElementById('btn-indexed').classList.add('active');
+    document.getElementById('btn-absolute').classList.remove('active');
+    buildTrendChart();
+  });
+}
+
+function buildTrendChart() {
+  if (chartInstances.trend) {
+    chartInstances.trend.destroy();
+    chartInstances.trend = null;
+  }
+  const ctx = document.getElementById('trend-chart').getContext('2d');
+  const h = historyData;
+
+  if (trendMode === 'indexed' && h.benchmark && h.benchmark.length > 0) {
+    // vs 大盤模式（base-100 歸一化）
+    chartInstances.trend = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: h.dates,
+        datasets: [
+          {
+            label: '我的持倉',
+            data: h.portfolio_indexed,
+            borderColor: '#3B82F6',
+            tension: 0.3, pointRadius: 0, pointHitRadius: 10, borderWidth: 2,
+          },
+          {
+            label: '加權指數',
+            data: h.benchmark,
+            borderColor: '#F59E0B',
+            tension: 0.3, pointRadius: 0, pointHitRadius: 10, borderWidth: 2,
+          },
+          {
+            label: '基準線 (100)',
+            data: new Array(h.dates.length).fill(100),
+            borderColor: '#64748B', borderDash: [6, 4],
+            pointRadius: 0, borderWidth: 1,
+          },
+        ],
+      },
+      options: trendOptions((v) => v.toFixed(1)),
+    });
+  } else {
+    // 市值模式
+    chartInstances.trend = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: h.dates,
+        datasets: [
+          {
+            label: '總市值',
+            data: h.total_value,
+            borderColor: '#3B82F6',
+            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+            fill: true, tension: 0.3, pointRadius: 0, pointHitRadius: 10, borderWidth: 2,
+          },
+          {
+            label: '成本線',
+            data: new Array(h.dates.length).fill(h.cost_basis),
+            borderColor: '#64748B', borderDash: [6, 4],
+            pointRadius: 0, borderWidth: 1.5, fill: false,
+          },
+        ],
+      },
+      options: trendOptions((v) => formatCurrency(v)),
+    });
+  }
+}
+
+function trendOptions(yFormatter) {
+  return {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { intersect: false, mode: 'index' },
+    scales: {
+      x: {
+        ticks: { color: '#64748B', font: { family: 'IBM Plex Sans', size: 10 }, maxTicksLimit: 8 },
+        grid: { color: '#1E293B' },
+      },
+      y: {
+        ticks: { color: '#64748B', font: { family: 'IBM Plex Sans', size: 10 }, callback: yFormatter },
+        grid: { color: '#1E293B' },
+      },
+    },
+    plugins: {
+      legend: {
+        labels: { color: '#94A3B8', font: { family: 'IBM Plex Sans', size: 11 }, usePointStyle: true },
+      },
+    },
+  };
 }
 
 // ─── ETF 重疊分析 ──────────────────────────────
@@ -516,6 +545,91 @@ function renderOverlap(overlap) {
   );
 }
 
+// ─── 實質曝險穿透 ──────────────────────────────
+function renderExposure(exposure) {
+  if (!exposure) return;
+  const section = document.getElementById('exposure-section');
+  section.classList.remove('hidden');
+  const container = document.getElementById('exposure-content');
+
+  const top = exposure.exposures.slice(0, 15);
+  const maxAmount = top[0]?.amount || 1;
+
+  const rows = top.map(e => {
+    const barWidth = Math.round(e.amount / maxAmount * 100);
+    const barColor = e.pct >= 10 ? '#EF4444' : e.pct >= 5 ? '#F59E0B' : '#3B82F6';
+    const sourceText = e.sources
+      .map(s => s.etf === e.sources[0]?.etf && e.sources.length === 1 && s.weight === 100
+        ? '直接持有'
+        : `${s.etf_name} ${s.weight}%`)
+      .join(' + ');
+
+    const barFill = el('div', { className: 'exposure-bar-fill' });
+    barFill.style.width = `${barWidth}%`;
+    barFill.style.backgroundColor = barColor;
+
+    return el('div', { className: 'flex items-center gap-3 py-2 border-b border-slate-800' }, [
+      el('div', { className: 'w-24 sm:w-32 text-sm font-medium truncate', textContent: e.name }),
+      el('div', { className: 'flex-1 min-w-0' }, [
+        el('div', { className: 'flex justify-between text-xs mb-1' }, [
+          el('span', { className: 'text-slate-400', textContent: sourceText }),
+          el('span', { className: 'font-medium', textContent: `${formatCurrency(e.amount)} (${e.pct}%)` }),
+        ]),
+        el('div', { className: 'exposure-bar-bg' }, [barFill]),
+      ]),
+    ]);
+  });
+
+  container.replaceChildren(...rows);
+}
+
+// ─── 觀察清單 ──────────────────────────────────
+function renderWatchlist(watchlist) {
+  if (!watchlist || !watchlist.items || watchlist.items.length === 0) return;
+  const section = document.getElementById('watchlist-section');
+  section.classList.remove('hidden');
+  const container = document.getElementById('watchlist-content');
+
+  const thead = el('thead', {}, [
+    el('tr', {}, [
+      el('th', { textContent: '代號' }),
+      el('th', { textContent: '名稱' }),
+      el('th', { className: 'text-right', textContent: '現價' }),
+      el('th', { className: 'text-right', textContent: '目標價' }),
+      el('th', { className: 'text-right', textContent: '距離' }),
+      el('th', { textContent: '備註' }),
+    ]),
+  ]);
+
+  const rows = watchlist.items.map(w => {
+    const price = w.current_price;
+    const target = w.target_price;
+    let distText = '—';
+    let badgeClass = 'target-badge';
+    if (price != null && target != null) {
+      const dist = ((price - target) / target * 100).toFixed(1);
+      const above = price >= target;
+      distText = `${above ? '+' : ''}${dist}%`;
+      badgeClass += above ? ' above' : ' below';
+    }
+
+    return el('tr', {}, [
+      el('td', { textContent: w.ticker }),
+      el('td', { textContent: w.name }),
+      el('td', { className: 'text-right', textContent: price != null ? `$${price.toFixed(2)}` : '—' }),
+      el('td', { className: 'text-right', textContent: `$${target}` }),
+      el('td', { className: 'text-right' }, [
+        el('span', { className: badgeClass, textContent: distText }),
+      ]),
+      el('td', { className: 'text-slate-500 text-xs', textContent: w.note || '' }),
+    ]);
+  });
+
+  container.replaceChildren(
+    el('table', { className: 'overlap-table' }, [thead, el('tbody', {}, rows)])
+  );
+}
+
 // ─── 時間戳 ────────────────────────────────────
 function renderTimestamp(updatedAt) {
   const elNode = document.getElementById('updated-at');
@@ -533,7 +647,7 @@ function renderTimestamp(updatedAt) {
 // ─── 初始化 ────────────────────────────────────
 async function init() {
   try {
-    const { portfolio, xray, overlap, history } = await loadData();
+    const { portfolio, xray, overlap, history, exposure, watchlist } = await loadData();
     xrayData = xray;
 
     renderTimestamp(portfolio.updated_at);
@@ -542,6 +656,8 @@ async function init() {
     renderAllocationChart(portfolio.holdings);
     renderHoldings(portfolio.holdings);
     renderOverlap(overlap);
+    renderExposure(exposure);
+    renderWatchlist(watchlist);
   } catch (err) {
     console.error('載入資料失敗:', err);
     document.getElementById('updated-at').textContent = '⚠ 資料載入失敗';
