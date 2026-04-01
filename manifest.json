@@ -1,0 +1,21 @@
+{
+  "name": "Eric's Investment Dashboard",
+  "short_name": "Dashboard",
+  "description": "個人投資儀表板 — 持倉追蹤、ETF X 光、曝險穿透",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050510",
+  "theme_color": "#050510",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
