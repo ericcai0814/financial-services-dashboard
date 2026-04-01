@@ -1,479 +1,479 @@
 {
-  "total_portfolio": 1037325,
+  "total_portfolio": 1425021,
   "exposures": [
     {
       "name": "台積電",
-      "amount": 381607,
+      "amount": 563509,
       "sources": [
         {
           "etf": "006208",
           "etf_name": "富邦台50",
           "weight": 48.52,
-          "amount": 371467
+          "amount": 541209
         },
         {
           "etf": "00881",
           "etf_name": "國泰台灣科技龍頭",
           "weight": 30.25,
-          "amount": 10140
+          "amount": 22300
         }
       ],
-      "pct": 36.79
+      "pct": 39.54
     },
     {
       "name": "鴻海",
-      "amount": 44227,
+      "amount": 66465,
       "sources": [
         {
           "etf": "006208",
           "etf_name": "富邦台50",
           "weight": 5.42,
-          "amount": 41495
+          "amount": 60457
         },
         {
           "etf": "00881",
           "etf_name": "國泰台灣科技龍頭",
           "weight": 8.15,
-          "amount": 2732
+          "amount": 6008
         }
       ],
-      "pct": 4.26
+      "pct": 4.66
     },
     {
       "name": "聯發科",
-      "amount": 40452,
+      "amount": 61629,
       "sources": [
         {
           "etf": "006208",
           "etf_name": "富邦台50",
           "weight": 4.81,
-          "amount": 36825
+          "amount": 53652
         },
         {
           "etf": "00881",
           "etf_name": "國泰台灣科技龍頭",
           "weight": 10.82,
-          "amount": 3627
+          "amount": 7977
         }
       ],
-      "pct": 3.9
+      "pct": 4.32
     },
     {
       "name": "廣達",
-      "amount": 29746,
+      "amount": 40513,
       "sources": [
         {
           "etf": "006208",
           "etf_name": "富邦台50",
           "weight": 2.55,
-          "amount": 19523
+          "amount": 28444
         },
         {
           "etf": "00878",
           "etf_name": "國泰永續高股息",
           "weight": 4.72,
-          "amount": 8564
+          "amount": 8420
         },
         {
           "etf": "00881",
           "etf_name": "國泰台灣科技龍頭",
           "weight": 4.95,
-          "amount": 1659
+          "amount": 3649
         }
       ],
-      "pct": 2.87
+      "pct": 2.84
     },
     {
       "name": "台達電",
-      "amount": 21874,
+      "amount": 33444,
       "sources": [
         {
           "etf": "006208",
           "etf_name": "富邦台50",
           "weight": 2.58,
-          "amount": 19752
+          "amount": 28778
         },
         {
           "etf": "00881",
           "etf_name": "國泰台灣科技龍頭",
           "weight": 6.33,
-          "amount": 2122
+          "amount": 4666
         }
       ],
-      "pct": 2.11
+      "pct": 2.35
     },
     {
       "name": "富邦金",
-      "amount": 16460,
+      "amount": 23982,
       "sources": [
         {
           "etf": "006208",
           "etf_name": "富邦台50",
           "weight": 2.15,
-          "amount": 16460
+          "amount": 23982
         }
       ],
-      "pct": 1.59
-    },
-    {
-      "name": "國泰金",
-      "amount": 15159,
-      "sources": [
-        {
-          "etf": "006208",
-          "etf_name": "富邦台50",
-          "weight": 1.98,
-          "amount": 15159
-        }
-      ],
-      "pct": 1.46
+      "pct": 1.68
     },
     {
       "name": "日月光投控",
-      "amount": 15085,
+      "amount": 23402,
       "sources": [
         {
           "etf": "006208",
           "etf_name": "富邦台50",
           "weight": 1.72,
-          "amount": 13168
+          "amount": 19185
         },
         {
           "etf": "00881",
           "etf_name": "國泰台灣科技龍頭",
           "weight": 5.72,
-          "amount": 1917
+          "amount": 4217
         }
       ],
-      "pct": 1.45
+      "pct": 1.64
     },
     {
-      "name": "中華電",
-      "amount": 14164,
+      "name": "國泰金",
+      "amount": 22086,
       "sources": [
         {
           "etf": "006208",
           "etf_name": "富邦台50",
-          "weight": 1.85,
-          "amount": 14164
+          "weight": 1.98,
+          "amount": 22086
         }
       ],
-      "pct": 1.37
+      "pct": 1.55
     },
     {
       "name": "聯電",
-      "amount": 13603,
+      "amount": 21108,
       "sources": [
         {
           "etf": "006208",
           "etf_name": "富邦台50",
           "weight": 1.55,
-          "amount": 11867
+          "amount": 17289
         },
         {
           "etf": "00881",
           "etf_name": "國泰台灣科技龍頭",
           "weight": 5.18,
-          "amount": 1736
+          "amount": 3819
         }
       ],
-      "pct": 1.31
+      "pct": 1.48
+    },
+    {
+      "name": "中華電",
+      "amount": 20636,
+      "sources": [
+        {
+          "etf": "006208",
+          "etf_name": "富邦台50",
+          "weight": 1.85,
+          "amount": 20636
+        }
+      ],
+      "pct": 1.45
     },
     {
       "name": "華碩",
-      "amount": 10687,
+      "amount": 10508,
       "sources": [
         {
           "etf": "00878",
           "etf_name": "國泰永續高股息",
           "weight": 5.89,
-          "amount": 10687
+          "amount": 10508
         }
       ],
-      "pct": 1.03
+      "pct": 0.74
     },
     {
       "name": "大聯大",
-      "amount": 9453,
+      "amount": 9295,
       "sources": [
         {
           "etf": "00878",
           "etf_name": "國泰永續高股息",
           "weight": 5.21,
-          "amount": 9453
+          "amount": 9295
         }
       ],
-      "pct": 0.91
+      "pct": 0.65
     },
     {
       "name": "聯強",
-      "amount": 8800,
+      "amount": 8652,
       "sources": [
         {
           "etf": "00878",
           "etf_name": "國泰永續高股息",
           "weight": 4.85,
-          "amount": 8800
+          "amount": 8652
         }
       ],
-      "pct": 0.85
+      "pct": 0.61
     },
     {
       "name": "仁寶",
-      "amount": 8256,
+      "amount": 8117,
       "sources": [
         {
           "etf": "00878",
           "etf_name": "國泰永續高股息",
           "weight": 4.55,
-          "amount": 8256
+          "amount": 8117
         }
       ],
-      "pct": 0.8
+      "pct": 0.57
     },
     {
       "name": "緯創",
-      "amount": 7947,
+      "amount": 7814,
       "sources": [
         {
           "etf": "00878",
           "etf_name": "國泰永續高股息",
           "weight": 4.38,
-          "amount": 7947
+          "amount": 7814
         }
       ],
-      "pct": 0.77
+      "pct": 0.55
     },
     {
       "name": "英業達",
-      "amount": 7475,
+      "amount": 7350,
       "sources": [
         {
           "etf": "00878",
           "etf_name": "國泰永續高股息",
           "weight": 4.12,
-          "amount": 7475
+          "amount": 7350
         }
       ],
-      "pct": 0.72
+      "pct": 0.52
     },
     {
       "name": "技嘉",
-      "amount": 7167,
+      "amount": 7047,
       "sources": [
         {
           "etf": "00878",
           "etf_name": "國泰永續高股息",
           "weight": 3.95,
-          "amount": 7167
+          "amount": 7047
         }
       ],
-      "pct": 0.69
+      "pct": 0.49
     },
     {
       "name": "微星",
-      "amount": 6858,
+      "amount": 6744,
       "sources": [
         {
           "etf": "00878",
           "etf_name": "國泰永續高股息",
           "weight": 3.78,
-          "amount": 6858
+          "amount": 6744
         }
       ],
-      "pct": 0.66
+      "pct": 0.47
     },
     {
       "name": "光寶",
-      "amount": 6568,
+      "amount": 6458,
       "sources": [
         {
           "etf": "00878",
           "etf_name": "國泰永續高股息",
           "weight": 3.62,
-          "amount": 6568
-        }
-      ],
-      "pct": 0.63
-    },
-    {
-      "name": "Planet Labs",
-      "amount": 4676,
-      "sources": [
-        {
-          "etf": "00910",
-          "etf_name": "第一金太空衛星",
-          "weight": 8.24,
-          "amount": 4676
+          "amount": 6458
         }
       ],
       "pct": 0.45
     },
     {
-      "name": "Rocket Lab",
-      "amount": 4285,
+      "name": "Planet Labs",
+      "amount": 4734,
       "sources": [
         {
           "etf": "00910",
           "etf_name": "第一金太空衛星",
-          "weight": 7.55,
-          "amount": 4285
-        }
-      ],
-      "pct": 0.41
-    },
-    {
-      "name": "L3Harris Technologies",
-      "amount": 3473,
-      "sources": [
-        {
-          "etf": "00910",
-          "etf_name": "第一金太空衛星",
-          "weight": 6.12,
-          "amount": 3473
+          "weight": 8.24,
+          "amount": 4734
         }
       ],
       "pct": 0.33
     },
     {
-      "name": "Northrop Grumman",
-      "amount": 3337,
+      "name": "Rocket Lab",
+      "amount": 4337,
       "sources": [
         {
           "etf": "00910",
           "etf_name": "第一金太空衛星",
-          "weight": 5.88,
-          "amount": 3337
-        }
-      ],
-      "pct": 0.32
-    },
-    {
-      "name": "Iridium Communications",
-      "amount": 3093,
-      "sources": [
-        {
-          "etf": "00910",
-          "etf_name": "第一金太空衛星",
-          "weight": 5.45,
-          "amount": 3093
+          "weight": 7.55,
+          "amount": 4337
         }
       ],
       "pct": 0.3
     },
     {
-      "name": "Trimble",
-      "amount": 2792,
+      "name": "L3Harris Technologies",
+      "amount": 3516,
       "sources": [
         {
           "etf": "00910",
           "etf_name": "第一金太空衛星",
-          "weight": 4.92,
-          "amount": 2792
+          "weight": 6.12,
+          "amount": 3516
         }
       ],
-      "pct": 0.27
-    },
-    {
-      "name": "Garmin",
-      "amount": 2713,
-      "sources": [
-        {
-          "etf": "00910",
-          "etf_name": "第一金太空衛星",
-          "weight": 4.78,
-          "amount": 2713
-        }
-      ],
-      "pct": 0.26
-    },
-    {
-      "name": "SES S.A.",
-      "amount": 2469,
-      "sources": [
-        {
-          "etf": "00910",
-          "etf_name": "第一金太空衛星",
-          "weight": 4.35,
-          "amount": 2469
-        }
-      ],
-      "pct": 0.24
-    },
-    {
-      "name": "Viasat",
-      "amount": 2338,
-      "sources": [
-        {
-          "etf": "00910",
-          "etf_name": "第一金太空衛星",
-          "weight": 4.12,
-          "amount": 2338
-        }
-      ],
-      "pct": 0.23
-    },
-    {
-      "name": "BlackSky Technology",
-      "amount": 2202,
-      "sources": [
-        {
-          "etf": "00910",
-          "etf_name": "第一金太空衛星",
-          "weight": 3.88,
-          "amount": 2202
-        }
-      ],
-      "pct": 0.21
+      "pct": 0.25
     },
     {
       "name": "瑞昱",
-      "amount": 1569,
+      "amount": 3450,
       "sources": [
         {
           "etf": "00881",
           "etf_name": "國泰台灣科技龍頭",
           "weight": 4.68,
-          "amount": 1569
+          "amount": 3450
         }
       ],
-      "pct": 0.15
+      "pct": 0.24
+    },
+    {
+      "name": "Northrop Grumman",
+      "amount": 3378,
+      "sources": [
+        {
+          "etf": "00910",
+          "etf_name": "第一金太空衛星",
+          "weight": 5.88,
+          "amount": 3378
+        }
+      ],
+      "pct": 0.24
+    },
+    {
+      "name": "Iridium Communications",
+      "amount": 3131,
+      "sources": [
+        {
+          "etf": "00910",
+          "etf_name": "第一金太空衛星",
+          "weight": 5.45,
+          "amount": 3131
+        }
+      ],
+      "pct": 0.22
     },
     {
       "name": "聯詠",
-      "amount": 1415,
+      "amount": 3111,
       "sources": [
         {
           "etf": "00881",
           "etf_name": "國泰台灣科技龍頭",
           "weight": 4.22,
-          "amount": 1415
+          "amount": 3111
         }
       ],
-      "pct": 0.14
+      "pct": 0.22
     },
     {
       "name": "矽力-KY",
-      "amount": 1291,
+      "amount": 2838,
       "sources": [
         {
           "etf": "00881",
           "etf_name": "國泰台灣科技龍頭",
           "weight": 3.85,
-          "amount": 1291
+          "amount": 2838
         }
       ],
-      "pct": 0.12
+      "pct": 0.2
+    },
+    {
+      "name": "Trimble",
+      "amount": 2827,
+      "sources": [
+        {
+          "etf": "00910",
+          "etf_name": "第一金太空衛星",
+          "weight": 4.92,
+          "amount": 2827
+        }
+      ],
+      "pct": 0.2
+    },
+    {
+      "name": "Garmin",
+      "amount": 2746,
+      "sources": [
+        {
+          "etf": "00910",
+          "etf_name": "第一金太空衛星",
+          "weight": 4.78,
+          "amount": 2746
+        }
+      ],
+      "pct": 0.19
+    },
+    {
+      "name": "SES S.A.",
+      "amount": 2499,
+      "sources": [
+        {
+          "etf": "00910",
+          "etf_name": "第一金太空衛星",
+          "weight": 4.35,
+          "amount": 2499
+        }
+      ],
+      "pct": 0.18
+    },
+    {
+      "name": "Viasat",
+      "amount": 2367,
+      "sources": [
+        {
+          "etf": "00910",
+          "etf_name": "第一金太空衛星",
+          "weight": 4.12,
+          "amount": 2367
+        }
+      ],
+      "pct": 0.17
+    },
+    {
+      "name": "BlackSky Technology",
+      "amount": 2229,
+      "sources": [
+        {
+          "etf": "00910",
+          "etf_name": "第一金太空衛星",
+          "weight": 3.88,
+          "amount": 2229
+        }
+      ],
+      "pct": 0.16
     },
     {
       "name": "大魯閣",
-      "amount": 19,
+      "amount": 17,
       "sources": [
         {
           "etf": "1432",
           "etf_name": "大魯閣",
           "weight": 100.0,
-          "amount": 19
+          "amount": 17
         }
       ],
       "pct": 0.0

@@ -6,8 +6,8 @@
       "name": "台積電",
       "target_price": 950,
       "note": "核心持股候選，等回檔",
-      "current_price": null,
-      "change_pct": null
+      "current_price": 1855.0,
+      "change_pct": 5.4
     },
     {
       "ticker": "00919",
@@ -15,8 +15,8 @@
       "name": "群益台灣精選高息",
       "target_price": 23,
       "note": "高息 ETF 比較對象",
-      "current_price": null,
-      "change_pct": null
+      "current_price": 22.5,
+      "change_pct": 2.18
     },
     {
       "ticker": "3661",
@@ -24,8 +24,8 @@
       "name": "世芯-KY",
       "target_price": 2200,
       "note": "AI ASIC 供應鏈",
-      "current_price": null,
-      "change_pct": null
+      "current_price": 2730.0,
+      "change_pct": 9.86
     }
   ]
 }
