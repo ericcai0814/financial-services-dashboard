@@ -6,129 +6,138 @@
   <title>Eric's Investment Dashboard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-[#020617] text-gray-200 font-['IBM_Plex_Sans'] min-h-screen">
+<body>
 
-  <!-- Header -->
-  <header class="border-b border-slate-800 px-6 py-4">
-    <div class="max-w-7xl mx-auto flex items-center justify-between">
-      <h1 class="text-xl font-semibold text-white tracking-tight">
-        <span class="text-blue-400">📊</span> Eric's Investment Dashboard
-      </h1>
-      <span id="updated-at" class="text-sm text-slate-500">載入中...</span>
-    </div>
-  </header>
+  <!-- Aurora Borealis Background -->
+  <div class="aurora-bg" aria-hidden="true">
+    <div class="aurora-mesh-3"></div>
+  </div>
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+  <!-- Content Layer -->
+  <div class="content-layer">
 
-    <!-- Summary Cards -->
-    <section id="summary-cards" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-      <div class="card">
-        <p class="text-sm text-slate-400 mb-1">總市值</p>
-        <p id="total-value" class="text-2xl font-bold text-white">—</p>
+    <!-- Header -->
+    <header class="dashboard-header px-6 py-4">
+      <div class="max-w-7xl mx-auto flex items-center justify-between">
+        <h1 class="text-xl">
+          <span class="accent-dot"></span>Eric's Investment Dashboard
+        </h1>
+        <span id="updated-at" class="text-sm" style="color: var(--text-muted);">載入中...</span>
       </div>
-      <div class="card">
-        <p class="text-sm text-slate-400 mb-1">總損益</p>
-        <p id="total-pnl" class="text-2xl font-bold">—</p>
-      </div>
-      <div class="card">
-        <p class="text-sm text-slate-400 mb-1">總報酬率</p>
-        <p id="total-return" class="text-2xl font-bold">—</p>
-      </div>
-    </section>
+    </header>
 
-    <!-- Trend Line Chart -->
-    <!-- Trend + Benchmark -->
-    <section class="card">
-      <div class="flex items-center justify-between mb-4">
-        <h2 class="text-base font-semibold text-slate-300">90 天市值走勢</h2>
-        <div class="flex gap-2">
-          <button id="btn-absolute" class="chart-tab active" type="button">市值</button>
-          <button id="btn-indexed" class="chart-tab" type="button">vs 大盤</button>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+
+      <!-- Summary Cards -->
+      <section id="summary-cards" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="card">
+          <p class="summary-label">總市值</p>
+          <p id="total-value" class="summary-value">—</p>
         </div>
-      </div>
-      <div class="w-full" style="height: 280px;">
-        <canvas id="trend-chart"></canvas>
-      </div>
-    </section>
-
-    <!-- Main Grid: Allocation Chart + Holdings Table -->
-    <section class="grid grid-cols-1 lg:grid-cols-5 gap-6">
-
-      <!-- Donut Chart -->
-      <div class="card lg:col-span-2 flex flex-col items-center">
-        <h2 class="text-base font-semibold text-slate-300 mb-4 self-start">資產配置</h2>
-        <div class="w-full max-w-[280px]">
-          <canvas id="allocation-chart"></canvas>
+        <div class="card">
+          <p class="summary-label">總損益</p>
+          <p id="total-pnl" class="summary-value">—</p>
         </div>
-      </div>
-
-      <!-- Holdings Table -->
-      <div class="card lg:col-span-3 overflow-x-auto">
-        <h2 class="text-base font-semibold text-slate-300 mb-4">持倉明細</h2>
-        <table class="w-full text-sm">
-          <thead>
-            <tr class="text-slate-400 border-b border-slate-700">
-              <th class="text-left py-2 px-2">代號</th>
-              <th class="text-left py-2 px-2">名稱</th>
-              <th class="text-right py-2 px-2">庫存</th>
-              <th class="text-right py-2 px-2">現價</th>
-              <th class="text-right py-2 px-2">市值</th>
-              <th class="text-right py-2 px-2">損益</th>
-              <th class="text-right py-2 px-2">報酬率</th>
-            </tr>
-          </thead>
-          <tbody id="holdings-body">
-            <tr><td colspan="7" class="text-center py-8 text-slate-500">載入中...</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-    </section>
-
-    <!-- ETF Overlap Analysis -->
-    <section id="overlap-section" class="card hidden">
-      <h2 class="text-base font-semibold text-slate-300 mb-4">ETF 重疊分析</h2>
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div>
-          <h3 class="text-sm text-slate-400 mb-3">ETF 交叉重疊</h3>
-          <div id="overlap-matrix" class="overflow-x-auto"></div>
+        <div class="card">
+          <p class="summary-label">總報酬率</p>
+          <p id="total-return" class="summary-value">—</p>
         </div>
-        <div>
-          <h3 class="text-sm text-slate-400 mb-3">重疊個股明細</h3>
-          <div id="overlap-stocks" class="overflow-x-auto"></div>
+      </section>
+
+      <!-- Trend + Benchmark -->
+      <section class="card">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="section-title">90 天市值走勢</h2>
+          <div class="flex gap-2">
+            <button id="btn-absolute" class="chart-tab active" type="button">市值</button>
+            <button id="btn-indexed" class="chart-tab" type="button">vs 大盤</button>
+          </div>
         </div>
-      </div>
-    </section>
+        <div class="w-full" style="height: 280px;">
+          <canvas id="trend-chart"></canvas>
+        </div>
+      </section>
 
-    <!-- Real Exposure -->
-    <section id="exposure-section" class="card hidden">
-      <h2 class="text-base font-semibold text-slate-300 mb-4">實質曝險穿透</h2>
-      <div id="exposure-content"></div>
-    </section>
+      <!-- Main Grid: Allocation Chart + Holdings Table -->
+      <section class="grid grid-cols-1 lg:grid-cols-5 gap-6">
 
-    <!-- ETF X-Ray (expandable) -->
-    <section id="xray-container" class="space-y-4 hidden">
-    </section>
+        <!-- Donut Chart -->
+        <div class="card lg:col-span-2 flex flex-col items-center">
+          <h2 class="section-title mb-4 self-start">資產配置</h2>
+          <div class="w-full max-w-[280px]">
+            <canvas id="allocation-chart"></canvas>
+          </div>
+        </div>
 
-    <!-- Watchlist -->
-    <section id="watchlist-section" class="card hidden">
-      <h2 class="text-base font-semibold text-slate-300 mb-4">觀察清單</h2>
-      <div id="watchlist-content" class="overflow-x-auto"></div>
-    </section>
+        <!-- Holdings Table -->
+        <div class="card lg:col-span-3 overflow-x-auto">
+          <h2 class="section-title mb-4">持倉明細</h2>
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="table-header">
+                <th class="text-left py-2 px-2">代號</th>
+                <th class="text-left py-2 px-2">名稱</th>
+                <th class="text-right py-2 px-2">庫存</th>
+                <th class="text-right py-2 px-2">現價</th>
+                <th class="text-right py-2 px-2">市值</th>
+                <th class="text-right py-2 px-2">損益</th>
+                <th class="text-right py-2 px-2">報酬率</th>
+              </tr>
+            </thead>
+            <tbody id="holdings-body">
+              <tr><td colspan="7" class="text-center py-8" style="color: var(--text-muted);">載入中...</td></tr>
+            </tbody>
+          </table>
+        </div>
 
-  </main>
+      </section>
 
-  <footer class="border-t border-slate-800 px-6 py-4 mt-8">
-    <p class="text-center text-xs text-slate-600">
-      資料來源：yfinance ｜ 供應鏈研究：
-      <a href="https://github.com/ericcai-tw/My-TW-Coverage" class="text-blue-500 hover:text-blue-400" target="_blank">My-TW-Coverage</a>
-    </p>
-  </footer>
+      <!-- ETF Overlap Analysis -->
+      <section id="overlap-section" class="card hidden">
+        <h2 class="section-title mb-4">ETF 重疊分析</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div>
+            <h3 class="text-sm mb-3" style="color: var(--text-muted);">ETF 交叉重疊</h3>
+            <div id="overlap-matrix" class="overflow-x-auto"></div>
+          </div>
+          <div>
+            <h3 class="text-sm mb-3" style="color: var(--text-muted);">重疊個股明細</h3>
+            <div id="overlap-stocks" class="overflow-x-auto"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Real Exposure -->
+      <section id="exposure-section" class="card hidden">
+        <h2 class="section-title mb-4">實質曝險穿透</h2>
+        <div id="exposure-content"></div>
+      </section>
+
+      <!-- ETF X-Ray (expandable) -->
+      <section id="xray-container" class="space-y-4 hidden">
+      </section>
+
+      <!-- Watchlist -->
+      <section id="watchlist-section" class="card hidden">
+        <h2 class="section-title mb-4">觀察清單</h2>
+        <div id="watchlist-content" class="overflow-x-auto"></div>
+      </section>
+
+    </main>
+
+    <footer class="dashboard-footer px-6 py-4 mt-8">
+      <p class="text-center">
+        資料來源：yfinance ｜ 供應鏈研究：
+        <a href="https://github.com/ericcai-tw/My-TW-Coverage" target="_blank">My-TW-Coverage</a>
+      </p>
+    </footer>
+
+  </div>
 
   <script src="app.js"></script>
 </body>

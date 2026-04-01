@@ -11,14 +11,15 @@
 const COLORS = {
   UP: '#EF4444',     // 漲 — 紅（台股慣例）
   DOWN: '#22C55E',   // 跌 — 綠（台股慣例）
-  NEUTRAL: '#94A3B8',
-  LINK: '#3B82F6',
+  NEUTRAL: '#6B7494',
+  LINK: '#34D399',
 };
 
+// S30 Aurora Borealis palette
 const CHART_PALETTE = [
-  '#3B82F6', '#8B5CF6', '#EC4899', '#F59E0B',
-  '#10B981', '#06B6D4', '#EF4444', '#6366F1',
-  '#14B8A6', '#F97316', '#84CC16', '#A855F7',
+  '#34D399', '#A78BFA', '#60A5FA', '#F472B6',
+  '#FBBF24', '#2DD4BF', '#818CF8', '#FB923C',
+  '#4ADE80', '#E879F9', '#38BDF8', '#F87171',
 ];
 
 // ─── DOM 工具 ──────────────────────────────────
@@ -117,11 +118,11 @@ function renderSummary(summary) {
   animateValue(valueEl, summary.total_value, formatCurrency);
 
   const pnlEl = document.getElementById('total-pnl');
-  pnlEl.className = `text-2xl font-bold ${pnlClass(summary.total_pnl)}`;
+  pnlEl.className = `summary-value ${pnlClass(summary.total_pnl)}`;
   animateValue(pnlEl, summary.total_pnl, formatPnl);
 
   const retEl = document.getElementById('total-return');
-  retEl.className = `text-2xl font-bold ${pnlClass(summary.total_return)}`;
+  retEl.className = `summary-value ${pnlClass(summary.total_return)}`;
   animateValue(retEl, summary.total_return, formatReturn);
 }
 
@@ -150,9 +151,9 @@ function renderAllocationChart(holdings) {
         legend: {
           position: 'bottom',
           labels: {
-            color: '#94A3B8',
+            color: '#6B7494',
             padding: 12,
-            font: { family: 'IBM Plex Sans', size: 12 },
+            font: { family: 'Syne', size: 12 },
             usePointStyle: true,
             pointStyleWidth: 10,
           },
@@ -351,9 +352,9 @@ function donutOptions() {
       legend: {
         position: 'bottom',
         labels: {
-          color: '#94A3B8',
+          color: '#6B7494',
           padding: 8,
-          font: { family: 'IBM Plex Sans', size: 11 },
+          font: { family: 'Syne', size: 11 },
           usePointStyle: true,
           pointStyleWidth: 8,
         },
@@ -419,19 +420,19 @@ function buildTrendChart() {
           {
             label: '我的持倉',
             data: h.portfolio_indexed,
-            borderColor: '#3B82F6',
+            borderColor: '#34D399',
             tension: 0.3, pointRadius: 0, pointHitRadius: 10, borderWidth: 2,
           },
           {
             label: '加權指數',
             data: h.benchmark,
-            borderColor: '#F59E0B',
+            borderColor: '#A78BFA',
             tension: 0.3, pointRadius: 0, pointHitRadius: 10, borderWidth: 2,
           },
           {
             label: '基準線 (100)',
             data: new Array(h.dates.length).fill(100),
-            borderColor: '#64748B', borderDash: [6, 4],
+            borderColor: '#6B7494', borderDash: [6, 4],
             pointRadius: 0, borderWidth: 1,
           },
         ],
@@ -448,14 +449,14 @@ function buildTrendChart() {
           {
             label: '總市值',
             data: h.total_value,
-            borderColor: '#3B82F6',
-            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+            borderColor: '#34D399',
+            backgroundColor: 'rgba(52, 211, 153, 0.08)',
             fill: true, tension: 0.3, pointRadius: 0, pointHitRadius: 10, borderWidth: 2,
           },
           {
             label: '成本線',
             data: new Array(h.dates.length).fill(h.cost_basis),
-            borderColor: '#64748B', borderDash: [6, 4],
+            borderColor: '#6B7494', borderDash: [6, 4],
             pointRadius: 0, borderWidth: 1.5, fill: false,
           },
         ],
@@ -472,17 +473,17 @@ function trendOptions(yFormatter) {
     interaction: { intersect: false, mode: 'index' },
     scales: {
       x: {
-        ticks: { color: '#64748B', font: { family: 'IBM Plex Sans', size: 10 }, maxTicksLimit: 8 },
-        grid: { color: '#1E293B' },
+        ticks: { color: '#6B7494', font: { family: 'Syne', size: 10 }, maxTicksLimit: 8 },
+        grid: { color: 'rgba(255, 255, 255, 0.04)' },
       },
       y: {
-        ticks: { color: '#64748B', font: { family: 'IBM Plex Sans', size: 10 }, callback: yFormatter },
-        grid: { color: '#1E293B' },
+        ticks: { color: '#6B7494', font: { family: 'Syne', size: 10 }, callback: yFormatter },
+        grid: { color: 'rgba(255, 255, 255, 0.04)' },
       },
     },
     plugins: {
       legend: {
-        labels: { color: '#94A3B8', font: { family: 'IBM Plex Sans', size: 11 }, usePointStyle: true },
+        labels: { color: '#B8C0D0', font: { family: 'Syne', size: 11 }, usePointStyle: true },
       },
     },
   };
@@ -557,7 +558,7 @@ function renderExposure(exposure) {
 
   const rows = top.map(e => {
     const barWidth = Math.round(e.amount / maxAmount * 100);
-    const barColor = e.pct >= 10 ? '#EF4444' : e.pct >= 5 ? '#F59E0B' : '#3B82F6';
+    const barColor = e.pct >= 10 ? '#F87171' : e.pct >= 5 ? '#A78BFA' : '#34D399';
     const sourceText = e.sources
       .map(s => s.etf === e.sources[0]?.etf && e.sources.length === 1 && s.weight === 100
         ? '直接持有'

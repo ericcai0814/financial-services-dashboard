@@ -1,4 +1,42 @@
-/* ─── Base ─────────────────────────────────── */
+/* ═══════════════════════════════════════════════
+   S30 Aurora Borealis — Investment Dashboard
+   ═══════════════════════════════════════════════ */
+
+/* ─── Design Tokens (CSS Variables) ──────────── */
+:root {
+  /* Color */
+  --bg-primary: #050510;
+  --bg-card: rgba(15, 15, 35, 0.55);
+  --bg-card-hover: rgba(20, 20, 50, 0.65);
+  --border-glass: rgba(255, 255, 255, 0.08);
+  --border-glass-hover: rgba(255, 255, 255, 0.15);
+  --text-primary: #FFFFFF;
+  --text-secondary: #B8C0D0;
+  --text-muted: #6B7494;
+  --brand-primary: #34D399;
+  --brand-accent: #A78BFA;
+  --brand-blue: #60A5FA;
+  --up: #EF4444;
+  --down: #22C55E;
+  --neutral: #6B7494;
+
+  /* Radius */
+  --radius-card: 24px;
+  --radius-pill: 9999px;
+  --radius-sm: 12px;
+
+  /* Shadow */
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --shadow-glow-green: 0 0 60px -12px rgba(52, 211, 153, 0.15);
+  --shadow-glow-purple: 0 0 60px -12px rgba(167, 139, 250, 0.15);
+
+  /* Typography */
+  --font-sans: 'Syne', sans-serif;
+  --tracking-wide: 0.02em;
+  --tracking-wider: 0.05em;
+}
+
+/* ─── Base ───────────────────────────────────── */
 * {
   box-sizing: border-box;
 }
@@ -6,67 +44,202 @@
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  letter-spacing: var(--tracking-wide);
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-/* ─── Card ─────────────────────────────────── */
+/* ─── Aurora Mesh Gradient Background ────────── */
+.aurora-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.aurora-bg::before,
+.aurora-bg::after {
+  content: '';
+  position: absolute;
+  width: 150%;
+  height: 150%;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.4;
+  animation: aurora-drift 20s ease-in-out infinite alternate;
+}
+
+.aurora-bg::before {
+  background: radial-gradient(circle, #4c1d95 0%, transparent 60%);
+  top: -40%;
+  left: -30%;
+  animation-name: aurora-drift-1;
+}
+
+.aurora-bg::after {
+  background: radial-gradient(circle, #065f46 0%, transparent 60%);
+  bottom: -40%;
+  right: -30%;
+  animation-name: aurora-drift-2;
+}
+
+.aurora-mesh-3 {
+  position: absolute;
+  width: 120%;
+  height: 120%;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.25;
+  background: radial-gradient(circle, #1e3a5f 0%, transparent 55%);
+  top: 20%;
+  left: 40%;
+  animation: aurora-drift-3 25s ease-in-out infinite alternate;
+}
+
+@keyframes aurora-drift-1 {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(10%, 8%) scale(1.1); }
+  100% { transform: translate(-5%, 15%) scale(0.95); }
+}
+
+@keyframes aurora-drift-2 {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(-12%, -6%) scale(1.05); }
+  100% { transform: translate(8%, -10%) scale(1.1); }
+}
+
+@keyframes aurora-drift-3 {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(-8%, 10%) scale(1.15); }
+  100% { transform: translate(5%, -5%) scale(0.9); }
+}
+
+/* ─── Reduced Motion ─────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .aurora-bg::before,
+  .aurora-bg::after,
+  .aurora-mesh-3 {
+    animation: none;
+  }
+}
+
+/* ─── Content Layer ──────────────────────────── */
+.content-layer {
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── Frosted Glass Card ─────────────────────── */
 .card {
-  background: #0F172A;
-  border: 1px solid #1E293B;
-  border-radius: 12px;
-  padding: 1.25rem;
-  transition: border-color 0.2s ease;
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-card);
+  padding: 1.5rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: var(--shadow-glass);
+  transition: border-color 0.3s ease, background 0.3s ease;
 }
 
 .card:hover {
-  border-color: #334155;
+  border-color: var(--border-glass-hover);
+  background: var(--bg-card-hover);
 }
 
-/* ─── Holdings Table ──────────────────────── */
+/* ─── Header ─────────────────────────────────── */
+.dashboard-header {
+  border-bottom: 1px solid var(--border-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(5, 5, 16, 0.6);
+}
+
+.dashboard-header h1 {
+  font-weight: 700;
+  letter-spacing: var(--tracking-wider);
+  color: var(--text-primary);
+}
+
+.dashboard-header .accent-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--brand-primary);
+  box-shadow: 0 0 12px var(--brand-primary);
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+/* ─── Summary Cards ──────────────────────────── */
+.summary-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: var(--tracking-wider);
+}
+
+.summary-label {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  margin-bottom: 0.375rem;
+}
+
+/* ─── Holdings Table ─────────────────────────── */
 #holdings-body tr {
-  border-bottom: 1px solid #1E293B;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: background 0.2s ease;
 }
 
 #holdings-body tr:hover {
-  background: #1E293B;
+  background: rgba(167, 139, 250, 0.06);
 }
 
 #holdings-body tr.expanded {
-  background: #1E293B;
+  background: rgba(167, 139, 250, 0.08);
   border-bottom-color: transparent;
 }
 
 #holdings-body tr td {
-  padding: 0.625rem 0.5rem;
+  padding: 0.75rem 0.5rem;
 }
 
-/* ─── Color: 台股慣例漲紅跌綠 ────────────── */
+/* ─── Color: gain/loss ───────────────────────── */
 .gain {
-  color: #EF4444;
+  color: var(--up);
 }
 
 .loss {
-  color: #22C55E;
+  color: var(--down);
 }
 
 .neutral {
-  color: #94A3B8;
+  color: var(--neutral);
 }
 
-/* ─── ETF X-Ray Panel ─────────────────────── */
+/* ─── ETF X-Ray Panel ────────────────────────── */
 .xray-panel {
-  background: #0F172A;
-  border: 1px solid #1E293B;
-  border-radius: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-card);
   padding: 1.5rem;
-  animation: slideDown 0.25s ease-out;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: var(--shadow-glass);
+  animation: slideDown 0.3s ease-out;
 }
 
 @keyframes slideDown {
   from {
     opacity: 0;
-    transform: translateY(-8px);
+    transform: translateY(-12px);
   }
   to {
     opacity: 1;
@@ -77,8 +250,9 @@ body {
 .xray-panel h3 {
   font-size: 1rem;
   font-weight: 600;
-  color: #E2E8F0;
+  color: var(--text-primary);
   margin-bottom: 1rem;
+  letter-spacing: var(--tracking-wide);
 }
 
 .xray-table {
@@ -87,14 +261,17 @@ body {
 }
 
 .xray-table thead tr {
-  border-bottom: 1px solid #334155;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .xray-table th {
-  color: #94A3B8;
+  color: var(--text-muted);
   padding: 0.5rem 0.5rem;
   text-align: left;
   font-weight: 500;
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  font-size: 0.6875rem;
 }
 
 .xray-table th.text-right {
@@ -103,38 +280,40 @@ body {
 
 .xray-table td {
   padding: 0.5rem 0.5rem;
-  border-bottom: 1px solid #1E293B;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
 }
 
 .xray-table td.text-right {
   text-align: right;
 }
 
-/* ─── Coverage Link ───────────────────────── */
+/* ─── Coverage Link ──────────────────────────── */
 .coverage-link {
-  color: #3B82F6;
+  color: var(--brand-primary);
   text-decoration: none;
-  transition: color 0.15s;
+  transition: color 0.2s;
 }
 
 .coverage-link:hover {
-  color: #60A5FA;
+  color: #6EE7B7;
 }
 
-/* ─── ETF badge ───────────────────────────── */
+/* ─── ETF badge ──────────────────────────────── */
 .etf-badge {
   display: inline-block;
-  font-size: 0.625rem;
-  font-weight: 600;
-  padding: 0.125rem 0.375rem;
-  border-radius: 4px;
-  background: #1E293B;
-  color: #94A3B8;
-  margin-left: 0.375rem;
+  font-size: 0.5625rem;
+  font-weight: 700;
+  padding: 0.125rem 0.5rem;
+  border-radius: var(--radius-pill);
+  background: rgba(167, 139, 250, 0.15);
+  color: var(--brand-accent);
+  margin-left: 0.5rem;
   vertical-align: middle;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-/* ─── Chart Containers ────────────────────── */
+/* ─── Chart Containers ───────────────────────── */
 .xray-charts {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -155,10 +334,12 @@ body {
 }
 
 .xray-chart-wrapper h4 {
-  font-size: 0.8125rem;
-  color: #94A3B8;
+  font-size: 0.75rem;
+  color: var(--text-muted);
   margin-bottom: 0.75rem;
   font-weight: 500;
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
 }
 
 .xray-chart-wrapper canvas {
@@ -166,10 +347,171 @@ body {
   max-height: 200px;
 }
 
-/* ─── Responsive ──────────────────────────── */
+/* ─── Chart Tab Buttons (Pill Style) ─────────── */
+.chart-tab {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.375rem 1rem;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-muted);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: var(--tracking-wide);
+}
+
+.chart-tab.active {
+  background: rgba(52, 211, 153, 0.15);
+  color: var(--brand-primary);
+  border-color: rgba(52, 211, 153, 0.3);
+}
+
+.chart-tab:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+}
+
+/* focus ring for accessibility */
+.chart-tab:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
+}
+
+/* ─── Trend Chart ────────────────────────────── */
+#trend-chart {
+  width: 100% !important;
+}
+
+/* ─── Expand indicator ───────────────────────── */
+.expand-indicator {
+  display: inline-block;
+  transition: transform 0.2s ease;
+  margin-right: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.expand-indicator.open {
+  transform: rotate(90deg);
+  color: var(--brand-accent);
+}
+
+/* ─── Overlap Matrix ─────────────────────────── */
+.overlap-table {
+  width: 100%;
+  font-size: 0.8125rem;
+  border-collapse: collapse;
+}
+
+.overlap-table th,
+.overlap-table td {
+  padding: 0.5rem 0.625rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.overlap-table th {
+  color: var(--text-muted);
+  font-weight: 500;
+  text-align: left;
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  font-size: 0.6875rem;
+}
+
+.overlap-table td.text-right {
+  text-align: right;
+}
+
+.overlap-count {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+  font-weight: 600;
+  padding: 0.125rem 0.625rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+}
+
+.overlap-count.high {
+  background: rgba(167, 139, 250, 0.2);
+  color: var(--brand-accent);
+}
+
+.overlap-bar {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--brand-accent);
+  margin-top: 0.25rem;
+}
+
+/* ─── Exposure Bar ───────────────────────────── */
+.exposure-bar-bg {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.exposure-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.6s ease-out;
+}
+
+/* ─── Watchlist ───────────────────────────────── */
+.target-badge {
+  font-size: 0.6875rem;
+  padding: 0.1875rem 0.625rem;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.target-badge.above {
+  background: rgba(239, 68, 68, 0.12);
+  color: #F87171;
+}
+
+.target-badge.below {
+  background: rgba(34, 197, 94, 0.12);
+  color: #4ADE80;
+}
+
+/* ─── Section Headers ────────────────────────── */
+.section-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: var(--tracking-wider);
+}
+
+/* ─── Footer ─────────────────────────────────── */
+.dashboard-footer {
+  border-top: 1px solid var(--border-glass);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.dashboard-footer a {
+  color: var(--brand-primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.dashboard-footer a:hover {
+  color: #6EE7B7;
+}
+
+/* ─── Responsive ─────────────────────────────── */
 @media (max-width: 640px) {
   .card {
-    padding: 1rem;
+    padding: 1.125rem;
+    border-radius: 16px;
+  }
+
+  .summary-value {
+    font-size: 1.375rem;
   }
 
   #holdings-body td:nth-child(5) {
@@ -184,7 +526,6 @@ body {
     min-height: 180px;
   }
 
-  /* 觸控友好：加大表格列高 */
   #holdings-body tr td {
     padding: 0.75rem 0.5rem;
   }
@@ -196,119 +537,31 @@ body {
   }
 }
 
-/* ─── Expand indicator ────────────────────── */
-.expand-indicator {
-  display: inline-block;
-  transition: transform 0.2s ease;
-  margin-right: 0.25rem;
-  font-size: 0.75rem;
-  color: #64748B;
-}
-
-.expand-indicator.open {
-  transform: rotate(90deg);
-}
-
-/* ─── Overlap Matrix ──────────────────────── */
-.overlap-table {
-  width: 100%;
-  font-size: 0.8125rem;
-  border-collapse: collapse;
-}
-
-.overlap-table th,
-.overlap-table td {
-  padding: 0.5rem 0.625rem;
-  border-bottom: 1px solid #1E293B;
-}
-
-.overlap-table th {
-  color: #94A3B8;
+/* ─── Table Header Styling ───────────────────── */
+.table-header {
+  color: var(--text-muted);
   font-weight: 500;
-  text-align: left;
-}
-
-.overlap-table td.text-right {
-  text-align: right;
-}
-
-.overlap-count {
-  display: inline-block;
-  background: #1E293B;
-  color: #E2E8F0;
-  font-weight: 600;
-  padding: 0.125rem 0.5rem;
-  border-radius: 9999px;
-  font-size: 0.75rem;
-}
-
-.overlap-count.high {
-  background: #7C3AED;
-  color: #F5F3FF;
-}
-
-.overlap-bar {
-  height: 4px;
-  border-radius: 2px;
-  background: #3B82F6;
-  margin-top: 0.25rem;
-}
-
-/* ─── Trend Chart ─────────────────────────── */
-#trend-chart {
-  width: 100% !important;
-}
-
-/* ─── Chart Tab Buttons ───────────────────── */
-.chart-tab {
-  font-size: 0.75rem;
-  padding: 0.25rem 0.75rem;
-  border-radius: 6px;
-  background: #1E293B;
-  color: #94A3B8;
-  border: 1px solid transparent;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.chart-tab.active {
-  background: #334155;
-  color: #E2E8F0;
-  border-color: #475569;
-}
-
-.chart-tab:hover:not(.active) {
-  background: #283548;
-}
-
-/* ─── Exposure Bar ────────────────────────── */
-.exposure-bar-bg {
-  height: 6px;
-  background: #1E293B;
-  border-radius: 3px;
-  overflow: hidden;
-}
-
-.exposure-bar-fill {
-  height: 100%;
-  border-radius: 3px;
-  transition: width 0.6s ease-out;
-}
-
-/* ─── Watchlist ───────────────────────────── */
-.target-badge {
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
   font-size: 0.6875rem;
-  padding: 0.125rem 0.5rem;
-  border-radius: 9999px;
-  font-weight: 500;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.target-badge.above {
-  background: rgba(239, 68, 68, 0.15);
-  color: #EF4444;
+/* ─── Scrollbar (Webkit) ─────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
 }
 
-.target-badge.below {
-  background: rgba(34, 197, 94, 0.15);
-  color: #22C55E;
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
