@@ -9,6 +9,7 @@ Usage:
 import json
 import os
 import sys
+import time
 from datetime import datetime
 
 import yfinance as yf
@@ -195,18 +196,32 @@ def fetch_current_prices(holdings):
         except (KeyError, IndexError, ValueError):
             prices[t] = None
 
-    # 個別重試失敗的 ticker
+    # 個別重試失敗的 ticker（最多 MAX_RETRIES 次，exponential backoff）
+    MAX_RETRIES = 3
+    BACKOFF_BASE = 2
     failed = [h for h in holdings if prices.get(h["yf_ticker"]) is None]
     for h in failed:
         t = h["yf_ticker"]
-        print(f"  ⚠ {t} 批次失敗，個別重試...")
-        try:
-            single = yf.Ticker(t)
-            hist = single.history(period="5d")
-            if not hist.empty:
-                prices[t] = round(float(hist["Close"].iloc[-1]), 2)
-        except Exception as e:
-            print(f"  ✗ {t} 重試失敗: {e}")
+        single = yf.Ticker(t)
+        for attempt in range(1, MAX_RETRIES + 1):
+            if attempt > 1:
+                delay = BACKOFF_BASE ** attempt
+                print(f"  ⚠ {t} 重試 {attempt}/{MAX_RETRIES}（等待 {delay}s）...")
+                time.sleep(delay)
+            else:
+                print(f"  ⚠ {t} 批次失敗，個別重試 1/{MAX_RETRIES}...")
+            try:
+                hist = single.history(period="5d")
+                if not hist.empty:
+                    val = float(hist["Close"].iloc[-1])
+                    if val != val:  # NaN check
+                        raise ValueError("NaN price")
+                    prices[t] = round(val, 2)
+                    print(f"  ✓ {t} 重試成功: ${prices[t]}")
+                    break
+            except Exception as e:
+                if attempt == MAX_RETRIES:
+                    print(f"  ✗ {t} 重試 {MAX_RETRIES} 次仍失敗: {e}")
 
     return prices
 
@@ -497,13 +512,28 @@ def main():
         p = prices.get(h["yf_ticker"], "N/A")
         print(f"  {h['ticker']} {h['name']}: ${p}")
 
-    # Step 2: 建構 portfolio.json
-    portfolio = build_portfolio(holdings, prices)
-    path = write_json(portfolio, "portfolio.json")
-    print(f"\n✓ portfolio.json → {path}")
-    print(f"  總市值: ${portfolio['summary']['total_value']:,}")
-    print(f"  總損益: ${portfolio['summary']['total_pnl']:,}")
-    print(f"  總報酬率: {portfolio['summary']['total_return']}%")
+    # Step 2: 建構 portfolio.json（全部失敗時保留舊資料）
+    success_count = sum(1 for h in holdings if prices.get(h["yf_ticker"]) is not None)
+
+    if success_count == 0:
+        print(f"\n⚠ 全部 {len(holdings)} 檔報價抓取失敗，保留舊的 portfolio.json")
+        # 讀取舊的 portfolio 給後續步驟使用
+        old_portfolio_path = os.path.join(DATA_DIR, "portfolio.json")
+        if os.path.exists(old_portfolio_path):
+            with open(old_portfolio_path, "r", encoding="utf-8") as f:
+                portfolio = json.load(f)
+        else:
+            print("  ⚠ 也沒有舊的 portfolio.json，無法繼續")
+            return
+    else:
+        if success_count < len(holdings):
+            print(f"\n⚠ {len(holdings) - success_count}/{len(holdings)} 檔報價失敗，部分使用成本價")
+        portfolio = build_portfolio(holdings, prices)
+        path = write_json(portfolio, "portfolio.json")
+        print(f"\n✓ portfolio.json → {path}")
+        print(f"  總市值: ${portfolio['summary']['total_value']:,}")
+        print(f"  總損益: ${portfolio['summary']['total_pnl']:,}")
+        print(f"  總報酬率: {portfolio['summary']['total_return']}%")
 
     # Step 3: 建構 etf_xray.json
     xray = build_etf_xray(ETF_COMPONENTS)
@@ -519,12 +549,15 @@ def main():
     print(f"  ETF 交叉對: {len(overlap['matrix'])} 組")
 
     # Step 5: 建構 exposure.json（實質曝險穿透）
-    exposure = build_exposure(ETF_COMPONENTS, portfolio["holdings"])
-    path = write_json(exposure, "exposure.json")
-    print(f"\n✓ exposure.json → {path}")
-    top3 = exposure["exposures"][:3]
-    for e in top3:
-        print(f"  {e['name']}: ${e['amount']:,} ({e['pct']}%)")
+    if success_count > 0:
+        exposure = build_exposure(ETF_COMPONENTS, portfolio["holdings"])
+        path = write_json(exposure, "exposure.json")
+        print(f"\n✓ exposure.json → {path}")
+        top3 = exposure["exposures"][:3]
+        for e in top3:
+            print(f"  {e['name']}: ${e['amount']:,} ({e['pct']}%)")
+    else:
+        print("\n⚠ exposure.json 跳過（無有效報價）")
 
     # Step 6: 建構 history.json（含大盤比較）
     history = build_history(holdings)
